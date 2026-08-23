@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Webberbiz Trading LLC — website
 
-## Getting Started
+Marketing site for Webberbiz Trading LLC, built to match the design language and
+motion of [kaayaprimerealty.com](https://kaayaprimerealty.com/), with all content and
+imagery taken from *Webberbiz — Product Presentation, May 2025* (45pp).
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack) + **TypeScript**
+- **Tailwind CSS v4** — design tokens declared in `src/app/globals.css` under `@theme`
+- **GSAP + ScrollTrigger** — reveals, split headings, counters, pinned sections
+- **Lenis** — smooth scroll, slaved to ScrollTrigger so scrubbed animation stays in sync
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    page.tsx            home — long scroll, all catalogue themes
+    products/           the five formulations + applications
+    technology/         nanotech scale, working principle, temperature dynamics
+    projects/           eight case studies with measured deltas
+    about/              the firm, R&D, decarbonisation, GCC
+    contact/            survey request form
+  components/
+    motion.tsx          Reveal / SplitHeading / Counter primitives
+    SmoothScroll.tsx    Lenis <-> ScrollTrigger bridge
+    home/               home page sections
+  lib/
+    data.ts             ALL site copy and figures, transcribed from the catalogue
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content
 
-## Learn More
+`src/lib/data.ts` is the single source of truth for copy. Every number in it —
+the 24°C–30°C reduction, the 70.7°C/46.3°C container readings, the AED 93,024
+energy saving, the 208,080 kg CO₂ figure, the project deltas and the two
+testimonials — is transcribed from the catalogue.
 
-To learn more about Next.js, take a look at the following resources:
+## Before launch — outstanding items
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+These are the only things not derivable from the catalogue:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Phone and email.** `company.phone` and `company.email` in `src/lib/data.ts` are
+   placeholders (`+971 0 000 0000`, `info@webberbiz.example`). The postal address is real.
+2. **Contact form endpoint.** `src/components/ContactForm.tsx` validates and shows a
+   confirmation state but does not submit anywhere. Point `onSubmit` at your form
+   handler or CRM.
+3. **`metadataBase`** in `src/app/layout.tsx` is set to `https://webberbiz.example` —
+   change to the production domain so Open Graph URLs resolve.
 
-## Deploy on Vercel
+## Images
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All 118 images in `public/img/` were extracted from the catalogue PDF — no stock
+photography was added. Product pack shots, brand wordmarks, the 3D application
+renders and the GCC flags keep their alpha channels as PNG; photographs are WebP.

@@ -1,0 +1,547 @@
+/**
+ * Every figure, claim and quote in this file is transcribed from
+ * "Webberbiz - Product Presentation, May 2025" (45pp).
+ * TODO markers flag details the catalogue does not contain.
+ */
+
+export const company = {
+  name: "Webberbiz Trading LLC",
+  short: "Webberbiz",
+  tagline: "Aligning to sustainability",
+  strapline: "Strategy of GCC",
+  address: {
+    line1: "341A-066 Al Ghurair Centre",
+    line2: "Deira, Dubai",
+    country: "United Arab Emirates",
+  },
+  // TODO - not present in the catalogue; replace before launch.
+  phone: "+971 0 000 0000",
+  email: "info@webberbiz.example",
+  copyright: "Property of Webberbiz Trading LLC. Duplication Prohibited.",
+};
+
+export const nav = [
+  { label: "Home", href: "/" },
+  { label: "Products", href: "/products" },
+  { label: "Technology", href: "/technology" },
+  { label: "Projects", href: "/projects" },
+  { label: "Firm", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+export const heroMetrics = [
+  { value: 24, suffix: "°C", label: "Roof temp reduction", note: "up to 30°C" },
+  { value: 20, suffix: " yrs", label: "Proven in India", note: "field record" },
+  { value: 7, suffix: " yrs", label: "Of research", note: "continuous R&D" },
+  { value: 208080, suffix: " kg", label: "CO₂ saved / facility", note: "modelled, per year" },
+  { value: 5, suffix: "", label: "GCC markets", note: "UAE · KSA · QA · OM · BH" },
+];
+
+export const marqueeWords = [
+  "Thermal Coating",
+  "Waterproofing",
+  "Nanotechnology",
+  "Decarbonization",
+  "Surface Preparation",
+  "Net Zero 2050",
+];
+
+/* ---------------------------------------------------------------- products */
+
+export type Product = {
+  slug: string;
+  name: string;
+  wordmark?: string;
+  category: string;
+  base?: string;
+  headline: string;
+  blurb: string;
+  image: string;
+  tone: "hot" | "cool" | "neutral";
+  properties: string[];
+  detail: string[];
+  comingSoon?: boolean;
+};
+
+export const products: Product[] = [
+  {
+    slug: "heatplug-metal",
+    name: "HEAT PLUG",
+    wordmark: "/img/brand/wordmark-heatplug.png",
+    category: "Coating for all metal surfaces",
+    headline:
+      "A nanotechnology-based ceramic composite thermal coating, specialised for metallic surfaces.",
+    blurb:
+      "Anticorrosive, anti-algae, anti-fungal and crack resistant. Significantly reduces surface temperature by about 24°C and inside ambient temperature by about 10°C to 18°C.",
+    image: "/img/products/heatplug-metal.png",
+    tone: "hot",
+    properties: [
+      "Anticorrosive",
+      "Anti algae",
+      "Anti fungal",
+      "Crack resistant",
+      "High durability",
+    ],
+    detail: [
+      "The coating blankets the surface and keeps the temperature away to the degree of the delta found on the surface.",
+      "Measured on a 10-foot container: 70.7°C uncoated against 46.3°C coated on the metal roof, and 46.1°C against 30.8°C on the inside ceiling.",
+    ],
+  },
+  {
+    slug: "heatplug-containers",
+    name: "HEAT PLUG",
+    wordmark: "/img/brand/wordmark-heatplug.png",
+    category: "Coating for metal containers",
+    headline: "High-durability thermal coating engineered for container-grade steel.",
+    blurb:
+      "The container-specific formulation of HEAT PLUG, built for the temperature dynamics of the UAE and wider GCC where surfaces routinely reach 63°C to 79°C.",
+    image: "/img/products/heatplug-container.png",
+    tone: "hot",
+    properties: ["High durability", "Anticorrosive", "Anti fungal", "Weather resistant"],
+    detail: [
+      "A proof of concept carried out on a container in the UAE on 26-27 September 2023 recorded a surface temperature drop of 24°C and a room temperature drop of 15°C.",
+      "In a miniature container the uncoated outer surface reached 69.7°C against 36.5°C coated - a delta of 20.9°.",
+    ],
+  },
+  {
+    slug: "heatplug-concrete",
+    name: "HEAT PLUG",
+    wordmark: "/img/brand/wordmark-heatplug.png",
+    category: "Coating for cemented surfaces",
+    base: "Water",
+    headline:
+      "A nanotechnology-based ceramic composite thermal coating, specialised for cement and concrete surfaces.",
+    blurb:
+      "Anti-algae, anti-fungal and crack resistant. Recommended for all buildings, homes, villas and mosques, on rooftops and walls.",
+    image: "/img/products/heatplug-concrete.png",
+    tone: "hot",
+    properties: [
+      "Thermal resistant",
+      "Crack resistant",
+      "Anti fungal",
+      "Algae resistant",
+      "Water base",
+    ],
+    detail: [
+      "Reduces temperature up to 24°C for concrete surfaces. The elongation characteristics resist cracking to a large extent, and the coating resists bacterial or fungal activity.",
+      "Applied as two layers before a coloured paint is given. Also suited to animal enclosures in zoos, farmhouses, walkways and the outside areas of masjids.",
+    ],
+  },
+  {
+    slug: "aquaplug",
+    name: "AQUAPLUG",
+    wordmark: "/img/brand/wordmark-aquaplug.png",
+    category: "Waterproof solution for cemented surfaces",
+    base: "Water",
+    headline:
+      "A nanotechnology-based composite waterproofing solution for cement concrete surfaces.",
+    blurb:
+      "The solution soaks itself with water, penetrates hairline cracks and seals them - an impregnate using water as its carrier. It works with water, against water.",
+    image: "/img/products/aquaplug.png",
+    tone: "cool",
+    properties: ["Seals hairline cracks", "Impregnation / wicking", "Water carrier", "Brush or spray"],
+    detail: [
+      "Where the market provides a parchment or layer that leaves the crack itself intact, the nano particulates accompany water into the crack to seal it.",
+      "Proven waterproofing technology for the past 20 years. The composite-based compound works on wicking action, is applied without disturbing the existing surface, and leakage stops in 8 hours.",
+    ],
+  },
+  {
+    slug: "surfaklean",
+    name: "SURFAKLEAN",
+    wordmark: "/img/brand/wordmark-surfaklean.png",
+    category: "Universal cleaner concentrate",
+    headline: "Surface cleaning and preparation compound.",
+    blurb:
+      "An eco-friendly product that does not damage reinforcement. Removes micro dust and loose mortar easily, and is the recommended cleaning agent across the entire Webberbiz coating product line.",
+    image: "/img/products/surfaklean.png",
+    tone: "neutral",
+    properties: ["Eco-friendly", "Safe on reinforcement", "Removes micro dust", "Removes loose mortar"],
+    detail: [
+      "It has a special property to remove emerging dust and dirt through its detergents and support the cleaning process.",
+      "Good surface preparation is mandatory before any Webberbiz coating is applied - SurfaKlean is the recommended agent.",
+    ],
+  },
+  {
+    slug: "coolg",
+    name: "COOL G",
+    category: "Thermal coating for glass",
+    headline: "Thermal coating for glass, of all types.",
+    blurb:
+      "A nano technology product that blocks ultraviolet radiations. Coming soon to the Webberbiz range.",
+    image: "/img/products/coolg.png",
+    tone: "cool",
+    properties: ["Blocks UV radiation", "All glass types", "Nano technology"],
+    detail: [],
+    comingSoon: true,
+  },
+];
+
+/* ------------------------------------------------------------- technology */
+
+export const nanoFacts = [
+  "A sheet of paper is about 100,000 nanometers thick.",
+  "A strand of human DNA is 2.5 nanometers in diameter.",
+  "There are 25,400,000 nanometers in one inch.",
+  "A human hair is approximately 80,000-100,000 nanometers wide.",
+];
+
+export const workingPrinciple = [
+  {
+    n: "01",
+    title: "Reflector",
+    body: "The outermost ceramic composite reflects incident radiation before it is absorbed into the substrate.",
+  },
+  {
+    n: "02",
+    title: "Insulator",
+    body: "The coating blankets the surface and keeps the temperature away to the degree of the delta found on the surface.",
+  },
+  {
+    n: "03",
+    title: "Substrate",
+    body: "The protected metal or concrete beneath, which stays at a materially lower temperature than an uncoated equivalent.",
+  },
+];
+
+export const temperatureBands = [
+  { region: "Observed band A", low: 63, high: 79 },
+  { region: "Observed band B", low: 68, high: 77 },
+  { region: "Observed band C", low: 66, high: 72 },
+];
+
+export const impacts = [
+  {
+    domain: "Humans",
+    items: [
+      "Lower productivity / yield loss",
+      "Compromised quality",
+      "Fatigue and lack of wellness",
+      "Accidents",
+    ],
+    image: "/img/bg/industrial-worker.webp",
+  },
+  {
+    domain: "Infrastructure",
+    items: [
+      "High maintenance",
+      "Weakened structure",
+      "High replacement costs",
+      "Possible accidents",
+    ],
+    image: "/img/bg/steel-structure.webp",
+  },
+  {
+    domain: "Environment",
+    items: ["Damaging the ecosystem", "Carbonising the environment"],
+    image: "/img/bg/city-smog.webp",
+  },
+  {
+    domain: "Energy",
+    items: [
+      "High consumption of power",
+      "High running costs",
+      "Waste of energy",
+      "The price of energy will always increase",
+    ],
+    image: "/img/bg/thermostat.webp",
+  },
+];
+
+export const protections = [
+  "Heat",
+  "Alkali",
+  "Water",
+  "Acid",
+  "Dust",
+  "Weather",
+  "Chemical",
+  "Abrasion",
+  "Algae & Fungus",
+];
+
+/* ------------------------------------------------------------ energy model */
+
+export const energyTable = {
+  assumption:
+    "Assuming a 50,000 sqft PEB industrial facility. Consumption of energy in kWh for 20 hours.",
+  head: ["Δ°C", "1 Ton / Day", "200T / Month", "200T / Year", "1 kWh", "Total cost of energy"],
+  rows: [
+    ["18°C", "17.4", "104,400", "1,252,800", "AED 0.38", "AED 476,064"],
+    ["24°C", "14", "84,000", "1,008,000", "AED 0.38", "AED 383,040"],
+  ],
+  savings: ["Savings", "3.4 kWh", "20,400 kWh", "244,800 kWh", "", "AED 93,024"],
+};
+
+export const carbonMath = [
+  { label: "Energy saved", value: "244,800 kWh" },
+  { label: "CO₂ per kWh", value: "0.85 kg" },
+  { label: "Total CO₂ saved", value: "208,080 kg" },
+];
+
+export const acContext = [
+  "Air conditioning is responsible for the equivalent of 1,950 million tons of carbon dioxide released annually.",
+  "That is 3.94% of global greenhouse gas emissions.",
+  "531 million tons come from energy expended to control the temperature, and 599 million tons from removing humidity.",
+];
+
+/* ------------------------------------------------------------- application */
+
+export const metalApplications = [
+  { label: "Containers", image: "/img/use/containers.webp" },
+  { label: "Bus roof tops", image: "/img/use/school-bus.webp" },
+  { label: "Industrial sheds", image: "/img/use/metal-roof.webp" },
+  { label: "Train roof tops", image: "/img/use/train.webp" },
+  { label: "Farm sheds", image: "/img/use/farm-shed.webp" },
+  { label: "Oil field installations", image: "/img/use/oil-field.webp" },
+  { label: "Bus shelters", image: "/img/use/bus-shelter.webp" },
+  { label: "Train stations", image: "/img/use/train-station.webp" },
+  { label: "Temp. controlled delivery trucks", image: "/img/use/refrigerated-truck.webp" },
+  { label: "Water storage tanks", image: "/img/use/water-tank.webp" },
+];
+
+export const leakageAreas = [
+  "Basements",
+  "Balconies",
+  "Rooftops",
+  "Retaining walls",
+  "Rooftop gardens",
+  "Water bodies",
+  "Pools",
+  "Water running bodies",
+  "Bathrooms",
+  "Canals",
+  "Sumps",
+];
+
+export const waterUseCases = [
+  { label: "Rooftop gardens", image: "/img/use/rooftop-garden.webp" },
+  { label: "Pools", image: "/img/use/pool.webp" },
+  { label: "Canals & water bodies", image: "/img/use/canal.webp" },
+  { label: "Bathrooms", image: "/img/use/bathroom.webp" },
+  { label: "Water running bodies", image: "/img/use/water-body.webp" },
+  { label: "Basements", image: "/img/use/basement.webp" },
+];
+
+/* ---------------------------------------------------------------- process */
+
+export const process = [
+  {
+    n: "01",
+    title: "Survey & thermal baseline",
+    body: "The surface is read before anything is applied - substrate condition, crack mapping and the temperature dynamics of the site itself.",
+  },
+  {
+    n: "02",
+    title: "Surface preparation",
+    body: "Good surface preparation is mandatory. SurfaKlean removes micro dust and loose mortar without damaging reinforcement.",
+  },
+  {
+    n: "03",
+    title: "Crack filling & screed",
+    body: "Damaged screed is removed, cracks are opened and filled, and a new screed is laid with AQUAPLUG where waterproofing is in scope.",
+  },
+  {
+    n: "04",
+    title: "Coating application",
+    body: "HEAT PLUG is brushed or sprayed in two coats. The delta is measured after the first coat and again after the second.",
+  },
+  {
+    n: "05",
+    title: "Verification & aftercare",
+    body: "Surface and ambient temperatures are recorded against the baseline, and the roof is handed over with the measured reduction documented.",
+  },
+];
+
+/* --------------------------------------------------------------- projects */
+
+export type Project = {
+  slug: string;
+  title: string;
+  scope: string;
+  body: string;
+  stat?: { value: string; label: string };
+  images: { src: string; caption: string }[];
+};
+
+export const projects: Project[] = [
+  {
+    slug: "uae-container-poc",
+    title: "Container proof of concept, UAE",
+    scope: "HEAT PLUG · metal · 26-27 September 2023",
+    body: "A proof of concept carried out on a 10-foot container. Surface temperature was logged across both coats through the working day, from 5:30 AM to 3:00 PM.",
+    stat: { value: "24°C", label: "surface temperature drop" },
+    images: [
+      { src: "/img/work/container-crew.webp", caption: "Applying the first coat" },
+      { src: "/img/work/container-ladder.webp", caption: "Second coat on the container wall" },
+      { src: "/img/proof/fluke-compare.webp", caption: "71.9°C uncoated against 45.8°C coated" },
+      { src: "/img/proof/coating-meter.webp", caption: "Inside and outside readings with coating" },
+    ],
+  },
+  {
+    slug: "industrial-sheds",
+    title: "Multiple industrial sheds",
+    scope: "HEAT PLUG · metal roofing",
+    body: "Thermal coating applied across multiple industrial shed roofs, reducing the temperature on the roof by between 20°C and 24°C.",
+    stat: { value: "57.4 → 36.1°C", label: "roof surface" },
+    images: [
+      { src: "/img/projects/metal-roof-partial.webp", caption: "Part-coated metal roof" },
+      { src: "/img/projects/metal-roof-roller.webp", caption: "Roller application" },
+      { src: "/img/projects/metal-roof-white.webp", caption: "Completed roof" },
+      { src: "/img/projects/metal-roof-coated.webp", caption: "Coated profile sheeting" },
+    ],
+  },
+  {
+    slug: "4000-sft-building",
+    title: "50-year-old, 4,000 SFT building",
+    scope: "AQUAPLUG + HEAT PLUG · complete roof repair",
+    body: "A roof with multiple large and micro cracks leading to direct leakage into the house. Work involved complete screed removal, ponding, crack filling, a new screed with AQUAPLUG and thermal coating with HEAT PLUG to avoid future cracks and leakage.",
+    images: [
+      { src: "/img/projects/house-before.webp", caption: "Before - damaged roof" },
+      { src: "/img/projects/house-screed.webp", caption: "New screed laid" },
+      { src: "/img/projects/house-coating.webp", caption: "Thermal coating applied" },
+      { src: "/img/projects/house-after.webp", caption: "After" },
+    ],
+  },
+  {
+    slug: "60000-sft-school",
+    title: "60,000 SFT school",
+    scope: "AQUAPLUG + ENERSHIED + HEAT PLUG",
+    body: "Multiple large and micro cracks were leading to huge water leakage on the top floor, with wall cracks causing seepage and fungal growth. Cracks were opened by machine, damaged screed removed and replaced with an AQUAPLUG screed, then ponded and crack-filled before thermal coating the roof and side wall.",
+    images: [
+      { src: "/img/projects/school-before.webp", caption: "Before" },
+      { src: "/img/projects/school-strip.webp", caption: "Damaged screed removed" },
+      { src: "/img/projects/school-mid.webp", caption: "New screed" },
+      { src: "/img/projects/school-work.webp", caption: "Coating in progress" },
+    ],
+  },
+  {
+    slug: "madrasa",
+    title: "Madrasa project",
+    scope: "AQUAPLUG + HEAT PLUG · roof and side wall",
+    body: "Complete rework of the roof with AQUAPLUG waterproofing, ponding and crack filling, then thermal coating with HEAT PLUG on the roof and side wall. Dampness and leakage stopped.",
+    stat: { value: "21.7°C", label: "reduction · 12-14°C inside" },
+    images: [
+      { src: "/img/projects/madrasa-before.webp", caption: "Before - cracked roof" },
+      { src: "/img/projects/madrasa-work.webp", caption: "Crack filling" },
+      { src: "/img/projects/madrasa-after.webp", caption: "After" },
+      { src: "/img/projects/roof-white-app.webp", caption: "Finished thermal coat" },
+    ],
+  },
+  {
+    slug: "6000-sft-building",
+    title: "25-year-old, 6,000 SFT building",
+    scope: "AQUAPLUG + HEAT PLUG · roof and side wall",
+    body: "Multiple large and micro cracks were leading to direct leakage from the roof into the house. Complete rework of the roof and side wall with AQUAPLUG waterproofing and ponding, including crack filling, followed by thermal coating with HEAT PLUG.",
+    stat: { value: "23.2°C", label: "reduction" },
+    images: [
+      { src: "/img/projects/red-roof-before.webp", caption: "Before - cracked terrace" },
+      { src: "/img/projects/red-roof-worker.webp", caption: "Crack filling in progress" },
+      { src: "/img/projects/finished-roof.webp", caption: "After" },
+      { src: "/img/projects/white-roof-wide.webp", caption: "Coated roof" },
+    ],
+  },
+  {
+    slug: "chicken-farm",
+    title: "Chicken farm, asbestos sheet",
+    scope: "HEAT PLUG · asbestos roofing",
+    body: "Thermal coating applied to asbestos sheet roofing on a chicken farm, reducing the temperature on the roof by 24°C.",
+    stat: { value: "19.2°C", label: "measured reduction" },
+    images: [
+      { src: "/img/projects/asbestos-farm.webp", caption: "Coating asbestos sheeting" },
+      { src: "/img/projects/asbestos-coating.webp", caption: "Coated run" },
+      { src: "/img/projects/asbestos-worker.webp", caption: "Application detail" },
+      { src: "/img/projects/crack-roof.webp", caption: "Surface preparation" },
+    ],
+  },
+  {
+    slug: "rooftops-parapets",
+    title: "Multiple rooftops and parapet walls",
+    scope: "HEAT PLUG · residential",
+    body: "Thermal coating applied across multiple rooftops and parapet walls, reducing the temperature on the roof by between 20°C and 24°C.",
+    stat: { value: "24.1°C", label: "reduction" },
+    images: [
+      { src: "/img/projects/solar-work.webp", caption: "Working around solar" },
+      { src: "/img/projects/solar-after.webp", caption: "Completed roof" },
+      { src: "/img/projects/terrace-mid.webp", caption: "Parapet walls coated" },
+      { src: "/img/projects/terrace-after.webp", caption: "After" },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------ testimonials */
+
+export const testimonials = [
+  {
+    quote:
+      "We had many issues in our 24-year-old old house, especially with heat inside the house and the leakage due to cracks on my roof and wall. After multiple research, I found the team and handed over the job to repair and coat with the thermal product, which they demonstrated. The work was carried out very methodically and completed before the commitment date. My house is as beautiful and neat as a newly constructed one. There is no heat inside the house - it is fantastic, I can sleep peacefully, and I can walk on the terrace barefoot in the afternoon, it is so cool. The dampness and leakage also stopped, which I observed during heavy rains.",
+    name: "Mrs. Jagadamba",
+    role: "Retd. Section Chief - BSNL, Bangalore",
+  },
+  {
+    quote: "Excellent job team. Thank you for the great job done to our house.",
+    name: "Mrs. Kala",
+    role: "Life Coach & Former HP National Trainer",
+  },
+];
+
+/* ---------------------------------------------------------------- markets */
+
+export const markets = [
+  { name: "United Arab Emirates", flag: "/img/flags/uae.png" },
+  { name: "Saudi Arabia", flag: "/img/flags/ksa.png" },
+  { name: "Qatar", flag: "/img/flags/qatar.png" },
+  { name: "Oman", flag: "/img/flags/oman.png" },
+  { name: "Bahrain", flag: "/img/flags/bahrain.png" },
+];
+
+export const gccCommitments = [
+  {
+    n: "I",
+    title: "First in the region to sign the Paris Agreement",
+    body: "The UAE was the first country in the region to sign the Paris Agreement.",
+  },
+  {
+    n: "II",
+    title: "Net zero carbon emissions by 2050",
+    body: "The first country in the region to commit to net zero carbon emissions by 2050.",
+  },
+  {
+    n: "III",
+    title: "Decarbonising oil & gas",
+    body: "To lead on climate change, the government of the UAE is decarbonising its oil and gas sector.",
+  },
+  {
+    n: "IV",
+    title: "Renewables and transition",
+    body: "Ramping up renewables, and transitioning its food and transportation systems.",
+  },
+];
+
+/* --------------------------------------------------------------------- faq */
+
+export const faqs = [
+  {
+    q: "How much temperature reduction should we actually expect?",
+    a: "Our products provide best-in-class thermal resistant insulation that will reduce roof temperatures by 24°C to 30°C, based on environmental conditions. On metallic surfaces we measure a surface temperature reduction of about 24°C and an inside ambient reduction of about 10°C to 18°C.",
+  },
+  {
+    q: "What surfaces can be coated?",
+    a: "There are separate formulations for metal and for cement or concrete. On metal: containers, bus and train roof tops, industrial and farm sheds, oil field installations, bus shelters, train stations, temperature-controlled delivery trucks and water storage tanks. On concrete: buildings, homes, villas and mosques, on both rooftops and walls.",
+  },
+  {
+    q: "How does the waterproofing differ from what the market provides?",
+    a: "Most solutions lay a parchment or layer over the surface, and the crack still remains underneath. AQUAPLUG uses water as its carrier - the nano particulates accompany water into the crack and seal it from within, by impregnation and wicking, without disturbing the existing surface.",
+  },
+  {
+    q: "How long before leakage stops?",
+    a: "Leakage stops in 8 hours. The technology has been proven in waterproofing for the past 20 years.",
+  },
+  {
+    q: "Is surface preparation really necessary?",
+    a: "Good surface preparation is mandatory. SurfaKlean is the recommended agent across the whole product line - it removes micro dust and loose mortar, and is eco-friendly so it does not damage reinforcement.",
+  },
+  {
+    q: "What does this mean for energy and carbon?",
+    a: "Temperature reduction on the roof top is directly proportional to reduced air conditioning energy consumption. On a 50,000 sqft PEB industrial facility, the modelled saving is 244,800 kWh a year - AED 93,024 - and 208,080 kg of CO₂.",
+  },
+];

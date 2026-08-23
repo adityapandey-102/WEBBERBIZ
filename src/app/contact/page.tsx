@@ -3,8 +3,8 @@ import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import Accordion from "@/components/Accordion";
-import { Eyebrow } from "@/components/ui";
-import { Reveal, SplitHeading } from "@/components/motion";
+import { SectionHead } from "@/components/ui";
+import { Reveal } from "@/components/motion";
 import { company, faqs, markets } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -18,28 +18,29 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Request a survey."
-        lede="Send us the surface, the area and what it is costing you to cool. We will come back with the specification, the expected delta and the energy it saves."
+        line1="Request"
+        line2="a survey."
+        lede="Send us the surface, the area and what it is costing you to cool. We come back with the specification, the expected delta and the energy it saves."
         image="/img/work/roller-roof.webp"
       />
 
       <div className="px-5 py-20 sm:px-8 md:py-24 lg:px-12">
-        <div className="mx-auto w-full max-w-[1320px]">
+        <div className="mx-auto w-full max-w-[1280px]">
           <div className="grid gap-12 lg:grid-cols-[1.25fr_0.85fr] lg:gap-16">
             <Reveal>
               <ContactForm />
             </Reveal>
 
-            {/* Details */}
-            <div className="space-y-8">
-              <Reveal className="rounded-2xl border border-line bg-surface px-7 py-8">
-                <h2 className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-faint">
+            <div className="space-y-6">
+              <Reveal className="lux-card px-8 py-9">
+                <h2 className="text-[10px] font-medium uppercase tracking-[0.24em] text-faint">
                   Office
                 </h2>
-                <address className="mt-5 not-italic text-[16px] leading-relaxed text-ink">
-                  <span className="font-display font-semibold">{company.name}</span>
-                  <br />
-                  <span className="text-muted">
+                <address className="mt-6 not-italic text-[15.5px] leading-[1.78]">
+                  <span className="font-display text-[1.5rem] font-semibold tracking-tight text-ink">
+                    {company.name}
+                  </span>
+                  <span className="mt-2 block text-body">
                     {company.address.line1}
                     <br />
                     {company.address.line2}
@@ -48,25 +49,25 @@ export default function ContactPage() {
                   </span>
                 </address>
 
-                <div className="mt-7 space-y-3 border-t border-line pt-6">
+                <div className="mt-7 space-y-4 border-t border-line pt-6">
                   <div>
-                    <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
+                    <div className="text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
                       Phone
                     </div>
                     <a
                       href={`tel:${company.phone.replace(/\s/g, "")}`}
-                      className="ulink mt-1 inline-block text-[15px] text-muted hover:text-accent"
+                      className="ulink mt-1.5 inline-block text-[15px] text-body hover:text-ink"
                     >
                       {company.phone}
                     </a>
                   </div>
                   <div>
-                    <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
+                    <div className="text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
                       Email
                     </div>
                     <a
                       href={`mailto:${company.email}`}
-                      className="ulink mt-1 inline-block text-[15px] text-muted hover:text-accent"
+                      className="ulink mt-1.5 inline-block text-[15px] text-body hover:text-ink"
                     >
                       {company.email}
                     </a>
@@ -74,11 +75,11 @@ export default function ContactPage() {
                 </div>
               </Reveal>
 
-              <Reveal className="rounded-2xl border border-line bg-surface px-7 py-8">
-                <h2 className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-faint">
+              <Reveal className="lux-card px-8 py-9">
+                <h2 className="text-[10px] font-medium uppercase tracking-[0.24em] text-faint">
                   Markets served
                 </h2>
-                <ul className="mt-5 space-y-3.5">
+                <ul className="mt-6 space-y-4">
                   {markets.map((m) => (
                     <li key={m.name} className="flex items-center gap-3">
                       <Image
@@ -88,7 +89,7 @@ export default function ContactPage() {
                         height={80}
                         className="h-6 w-6 rounded-full object-cover"
                       />
-                      <span className="text-[14.5px] text-muted">{m.name}</span>
+                      <span className="text-[14.5px] text-body">{m.name}</span>
                     </li>
                   ))}
                 </ul>
@@ -98,7 +99,7 @@ export default function ContactPage() {
                 <div className="relative aspect-[4/3]">
                   <Image
                     src="/img/bg/dubai-night.webp"
-                    alt="Dubai skyline"
+                    alt="Dubai at night"
                     fill
                     sizes="(max-width: 1024px) 92vw, 30vw"
                     className="object-cover"
@@ -113,13 +114,14 @@ export default function ContactPage() {
       {/* FAQ */}
       <div className="relative bg-surface px-5 py-24 sm:px-8 md:py-32 lg:px-12">
         <div className="haze haze-top" />
-        <div className="relative mx-auto w-full max-w-[1320px]">
+        <div className="relative mx-auto w-full max-w-[1280px]">
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-            <div>
-              <Eyebrow>Direct answers</Eyebrow>
-              <SplitHeading
-                text="Before you write to us."
-                className="mt-7 font-display text-[clamp(1.9rem,4.4vw,3.4rem)] font-semibold leading-[1.04] tracking-[-0.03em]"
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <SectionHead
+                eyebrow="Direct answers"
+                line1="Clear parameters."
+                line2="Total transparency."
+                size="md"
               />
             </div>
             <Accordion items={faqs} />

@@ -5,26 +5,23 @@ import { gsap, initGsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap"
 
 /* ------------------------------------------------------------------ Reveal */
 
-type RevealProps = {
-  children: ReactNode;
-  as?: ElementType;
-  className?: string;
-  /** Stagger direct children instead of animating the wrapper itself. */
-  stagger?: boolean;
-  delay?: number;
-  y?: number;
-  start?: string;
-};
-
 export function Reveal({
   children,
   as: Tag = "div",
   className = "",
   stagger = false,
   delay = 0,
-  y = 34,
-  start = "top 82%",
-}: RevealProps) {
+  y = 30,
+  start = "top 84%",
+}: {
+  children: ReactNode;
+  as?: ElementType;
+  className?: string;
+  stagger?: boolean;
+  delay?: number;
+  y?: number;
+  start?: string;
+}) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -45,10 +42,10 @@ export function Reveal({
         {
           opacity: 1,
           y: 0,
-          duration: 1.05,
+          duration: 1.1,
           delay,
           ease: "power3.out",
-          stagger: stagger ? 0.09 : 0,
+          stagger: stagger ? 0.08 : 0,
           scrollTrigger: { trigger: el, start, once: true },
         },
       );
@@ -64,24 +61,27 @@ export function Reveal({
   );
 }
 
-/* ----------------------------------------------------------- SplitHeading */
+/* ----------------------------------------------------------- LineReveal */
 
 /**
- * Splits on words and animates each line up from behind a mask.
- * We split by word (not character) so wrapping stays natural at every breakpoint.
+ * Display headings rise line-by-line from behind a mask. Each line is passed
+ * separately so the roman/italic pairing stays intact.
  */
-export function SplitHeading({
-  text,
+export function LineReveal({
+  lines,
   as: Tag = "h2",
   className = "",
+  italicFrom,
+  start = "top 86%",
   delay = 0,
-  start = "top 85%",
 }: {
-  text: string;
+  lines: string[];
   as?: ElementType;
   className?: string;
-  delay?: number;
+  /** Index from which lines render as grey serif italic. Serializable so this stays usable from server components. */
+  italicFrom?: number;
   start?: string;
+  delay?: number;
 }) {
   const ref = useRef<HTMLElement>(null);
 
@@ -89,49 +89,132 @@ export function SplitHeading({
     initGsap();
     const el = ref.current;
     if (!el) return;
-
-    const words = Array.from(el.querySelectorAll<HTMLElement>("[data-word] > span"));
-    if (!words.length) return;
+    const inner = el.querySelectorAll<HTMLElement>("[data-line] > span");
+    if (!inner.length) return;
 
     if (prefersReducedMotion()) {
-      gsap.set(words, { yPercent: 0, opacity: 1 });
+      gsap.set(inner, { yPercent: 0, opacity: 1 });
       return;
     }
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        words,
-        { yPercent: 118, opacity: 0 },
+        inner,
+        { yPercent: 108, opacity: 0 },
         {
           yPercent: 0,
           opacity: 1,
-          duration: 1.1,
+          duration: 1.25,
           delay,
           ease: "power4.out",
-          stagger: 0.045,
+          stagger: 0.11,
           scrollTrigger: { trigger: el, start, once: true },
         },
       );
     }, el);
 
     return () => ctx.revert();
-  }, [text, delay, start]);
+  }, [lines, start, delay]);
 
   return (
     <Tag ref={ref} className={className}>
-      {text.split(" ").map((word, i) => (
-        <span
-          key={`${word}-${i}`}
-          data-word
-          className="inline-block overflow-hidden align-bottom"
-        >
-          <span className="inline-block will-change-transform" style={{ opacity: 0 }}>
-            {word}
-            {i < text.split(" ").length - 1 ? " " : ""}
+      {lines.map((line, i) => (
+        <span key={line + i} data-line className="block overflow-hidden pb-[0.06em]">
+          <span
+            className={`block will-change-transform ${italicFrom !== undefined && i >= italicFrom ? "display-italic" : ""}`}
+            style={{ opacity: 0 }}
+          >
+            {line}
           </span>
         </span>
       ))}
     </Tag>
+  );
+}
+
+/* ------------------------------------------------------------- WordReveal */
+
+/**
+ * The inspiration's signature statement effect: every word starts blurred and
+ * pale, then sharpens and darkens as the section scrubs through the viewport.
+ * `accent` words take the teal, `italic` words the serif italic.
+ */
+export type StatementWord = { text: string; tone?: "plain" | "accent" | "italic" };
+
+export function WordReveal({
+  lines,
+  className = "",
+}: {
+  lines: StatementWord[][];
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    initGsap();
+    const el = ref.current;
+    if (!el) return;
+
+    const words = Array.from(el.querySelectorAll<HTMLElement>(".word"));
+    if (!words.length) return;
+
+    if (prefersReducedMotion()) {
+      words.forEach((w) => {
+        w.style.filter = "none";
+        w.style.opacity = "1";
+        w.style.color = "";
+      });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.to(words, {
+        filter: "blur(0px)",
+        opacity: 1,
+        color: (i: number) => words[i].dataset.target ?? "var(--color-ink-strong)",
+        ease: "none",
+        stagger: 0.5,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 78%",
+          end: "bottom 58%",
+          scrub: 0.6,
+        },
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, [lines]);
+
+  return (
+    <div ref={ref} className={className}>
+      {lines.map((line, li) => (
+        <span key={li} className="block">
+          {line.map((w, wi) => (
+            <span
+              key={`${li}-${wi}`}
+              className={`word ${
+                w.tone === "italic"
+                  ? "font-display italic"
+                  : w.tone === "accent"
+                    ? "font-sans"
+                    : "font-sans"
+              }`}
+              data-target={
+                w.tone === "accent"
+                  ? "var(--color-ink)"
+                  : w.tone === "italic"
+                    ? "var(--color-ink)"
+                    : "var(--color-ink-strong)"
+              }
+            >
+              {w.text}
+              {wi < line.length - 1 ? " " : ""}
+            </span>
+          ))}
+        </span>
+      ))}
+    </div>
   );
 }
 
@@ -174,12 +257,12 @@ export function Counter({
     const ctx = gsap.context(() => {
       gsap.to(obj, {
         n: value,
-        duration: 2,
+        duration: 2.1,
         ease: "power2.out",
         onUpdate: () => {
           el.textContent = format(obj.n);
         },
-        scrollTrigger: { trigger: el, start: "top 90%", once: true },
+        scrollTrigger: { trigger: el, start: "top 92%", once: true },
       });
     }, el);
 
@@ -193,3 +276,4 @@ export function Counter({
   );
 }
 
+export { ScrollTrigger };

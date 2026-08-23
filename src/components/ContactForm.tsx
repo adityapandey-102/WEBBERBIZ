@@ -6,7 +6,7 @@ import { Arrow } from "./ui";
 const surfaces = ["Metal roof / cladding", "Concrete roof or wall", "Container", "Waterproofing", "Not sure yet"];
 
 const field =
-  "w-full rounded-lg border border-line bg-bg px-4 py-3 text-[15px] text-ink outline-none transition-colors duration-300 placeholder:text-faint focus:border-accent";
+  "w-full rounded-lg border border-line bg-bg px-4 py-3 text-[15px] text-ink outline-none transition-colors duration-300 placeholder:text-faint focus:border-ink";
 const label = "block font-mono text-[10.5px] uppercase tracking-[0.16em] text-faint";
 
 export default function ContactForm() {
@@ -21,8 +21,8 @@ export default function ContactForm() {
 
   if (sent) {
     return (
-      <div className="rounded-2xl border border-accent/25 bg-accent/6 px-8 py-14 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent">
+      <div className="rounded-2xl border border-ink/25 bg-ink/6 px-8 py-14 text-center">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-ink">
           <svg
             viewBox="0 0 16 16"
             className="h-5 w-5 text-white"
@@ -35,17 +35,17 @@ export default function ContactForm() {
             <path d="M3 8.5 6.5 12 13 4" />
           </svg>
         </div>
-        <h3 className="mt-6 font-display text-2xl font-semibold tracking-tight">
+        <h3 className="mt-6 display text-[1.9rem]">
           Thank you — we have your details.
         </h3>
-        <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-muted">
+        <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-body">
           We will come back with a specification, the expected temperature delta and the energy it
           saves.
         </p>
         <button
           type="button"
           onClick={() => setSent(false)}
-          className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-accent underline-offset-4 hover:underline"
+          className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em] text-ink underline-offset-4 hover:underline"
         >
           Send another enquiry
         </button>
@@ -120,9 +120,9 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="group mt-7 inline-flex items-center gap-2.5 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-accent-hot hover:shadow-[0_0_44px_-8px_var(--color-accent)]"
+        className="group mt-8 inline-flex items-center gap-2.5 rounded-full bg-black px-7 py-3.5 text-[13.5px] font-semibold text-white transition-colors duration-500 hover:bg-ink"
       >
-        Request a survey
+        Request a Survey
         <Arrow />
       </button>
     </form>

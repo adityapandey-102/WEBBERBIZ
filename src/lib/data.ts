@@ -30,11 +30,11 @@ export const nav = [
 ];
 
 export const heroMetrics = [
-  { value: 24, suffix: "°C", label: "Roof temp reduction", note: "up to 30°C" },
-  { value: 20, suffix: " yrs", label: "Proven in India", note: "field record" },
-  { value: 7, suffix: " yrs", label: "Of research", note: "continuous R&D" },
-  { value: 208080, suffix: " kg", label: "CO₂ saved / facility", note: "modelled, per year" },
-  { value: 5, suffix: "", label: "GCC markets", note: "UAE · KSA · QA · OM · BH" },
+  { display: "24–30°C", label: "Roof temp cut" },
+  { display: "20 yrs", label: "Field proven" },
+  { display: "8 hrs", label: "Leakage stops" },
+  { display: "244,800", label: "kWh saved / yr" },
+  { display: "208 t", label: "CO₂ saved / yr" },
 ];
 
 export const marqueeWords = [
@@ -60,6 +60,8 @@ export type Product = {
   tone: "hot" | "cool" | "neutral";
   properties: string[];
   detail: string[];
+  /** Additional pack shots / labels for the same product from the catalogue. */
+  variants?: { src: string; caption: string }[];
   comingSoon?: boolean;
 };
 
@@ -85,6 +87,9 @@ export const products: Product[] = [
     detail: [
       "The coating blankets the surface and keeps the temperature away to the degree of the delta found on the surface.",
       "Measured on a 10-foot container: 70.7°C uncoated against 46.3°C coated on the metal roof, and 46.1°C against 30.8°C on the inside ceiling.",
+    ],
+    variants: [
+      { src: "/img/products/heatplug-metal-blue.png", caption: "External metal surfaces" },
     ],
   },
   {
@@ -126,6 +131,10 @@ export const products: Product[] = [
       "Reduces temperature up to 24°C for concrete surfaces. The elongation characteristics resist cracking to a large extent, and the coating resists bacterial or fungal activity.",
       "Applied as two layers before a coloured paint is given. Also suited to animal enclosures in zoos, farmhouses, walkways and the outside areas of masjids.",
     ],
+    variants: [
+      { src: "/img/products/heatplug-concrete-lg.png", caption: "5 kg pack" },
+      { src: "/img/products/heatplug-concrete-hero.png", caption: "Site pack" },
+    ],
   },
   {
     slug: "aquaplug",
@@ -143,6 +152,9 @@ export const products: Product[] = [
     detail: [
       "Where the market provides a parchment or layer that leaves the crack itself intact, the nano particulates accompany water into the crack to seal it.",
       "Proven waterproofing technology for the past 20 years. The composite-based compound works on wicking action, is applied without disturbing the existing surface, and leakage stops in 8 hours.",
+    ],
+    variants: [
+      { src: "/img/products/aquaplug-lg.png", caption: "Site pack" },
     ],
   },
   {
@@ -172,6 +184,7 @@ export const products: Product[] = [
     tone: "cool",
     properties: ["Blocks UV radiation", "All glass types", "Nano technology"],
     detail: [],
+    variants: [{ src: "/img/brand/badge-coolg.png", caption: "Thermal coating for glass, of all types" }],
     comingSoon: true,
   },
 ];
@@ -375,7 +388,8 @@ export const projects: Project[] = [
       { src: "/img/work/container-ladder.webp", caption: "Second coat on the container wall" },
       { src: "/img/proof/fluke-compare.webp", caption: "71.9°C uncoated against 45.8°C coated" },
       { src: "/img/proof/coating-meter.webp", caption: "Inside and outside readings with coating" },
-    ],
+          { src: "/img/work/container-crew2.webp", caption: "Night application on the container" },
+],
   },
   {
     slug: "industrial-sheds",
@@ -388,7 +402,9 @@ export const projects: Project[] = [
       { src: "/img/projects/metal-roof-roller.webp", caption: "Roller application" },
       { src: "/img/projects/metal-roof-white.webp", caption: "Completed roof" },
       { src: "/img/projects/metal-roof-coated.webp", caption: "Coated profile sheeting" },
-    ],
+          { src: "/img/projects/roof-app1.webp", caption: "Coating the shed roof" },
+      { src: "/img/projects/roof-app2.webp", caption: "Second coat across the run" },
+],
   },
   {
     slug: "4000-sft-building",
@@ -400,7 +416,11 @@ export const projects: Project[] = [
       { src: "/img/projects/house-screed.webp", caption: "New screed laid" },
       { src: "/img/projects/house-coating.webp", caption: "Thermal coating applied" },
       { src: "/img/projects/house-after.webp", caption: "After" },
-    ],
+          { src: "/img/projects/damaged-ceiling.webp", caption: "Ceiling damage from the leak" },
+      { src: "/img/projects/damp-ceiling.webp", caption: "Dampness before the rework" },
+      { src: "/img/projects/house-exterior.webp", caption: "The house after completion" },
+      { src: "/img/projects/interior.webp", caption: "Interior, dry and cooler" },
+],
   },
   {
     slug: "60000-sft-school",
@@ -425,7 +445,8 @@ export const projects: Project[] = [
       { src: "/img/projects/madrasa-work.webp", caption: "Crack filling" },
       { src: "/img/projects/madrasa-after.webp", caption: "After" },
       { src: "/img/projects/roof-white-app.webp", caption: "Finished thermal coat" },
-    ],
+          { src: "/img/projects/roof-before.webp", caption: "Roof condition on survey" },
+],
   },
   {
     slug: "6000-sft-building",
@@ -438,7 +459,9 @@ export const projects: Project[] = [
       { src: "/img/projects/red-roof-worker.webp", caption: "Crack filling in progress" },
       { src: "/img/projects/finished-roof.webp", caption: "After" },
       { src: "/img/projects/white-roof-wide.webp", caption: "Coated roof" },
-    ],
+          { src: "/img/projects/roof-coating.webp", caption: "Coating the side wall" },
+      { src: "/img/projects/crack-repair.webp", caption: "Crack repair detail" },
+],
   },
   {
     slug: "chicken-farm",
@@ -464,7 +487,9 @@ export const projects: Project[] = [
       { src: "/img/projects/solar-after.webp", caption: "Completed roof" },
       { src: "/img/projects/terrace-mid.webp", caption: "Parapet walls coated" },
       { src: "/img/projects/terrace-after.webp", caption: "After" },
-    ],
+          { src: "/img/projects/roof-solar.webp", caption: "Coated roof beneath the array" },
+      { src: "/img/projects/white-roof.webp", caption: "Finished parapet and deck" },
+],
   },
 ];
 
@@ -544,4 +569,112 @@ export const faqs = [
     q: "What does this mean for energy and carbon?",
     a: "Temperature reduction on the roof top is directly proportional to reduced air conditioning energy consumption. On a 50,000 sqft PEB industrial facility, the modelled saving is 244,800 kWh a year - AED 93,024 - and 208,080 kg of CO₂.",
   },
+];
+
+/* ------------------------------------------------------- scroll statement */
+
+export const statement: { text: string; tone?: "plain" | "accent" | "italic" }[][] = [
+  [
+    { text: "The" },
+    { text: "right", tone: "accent" },
+    { text: "coating,", tone: "italic" },
+  ],
+  [
+    { text: "On" },
+    { text: "the" },
+    { text: "right", tone: "accent" },
+    { text: "surface,", tone: "italic" },
+  ],
+  [
+    { text: "Measured" },
+    { text: "the", tone: "accent" },
+    { text: "right", tone: "accent" },
+    { text: "way,", tone: "italic" },
+  ],
+  [{ text: "Changes" }, { text: "Everything.", tone: "italic" }],
+];
+
+/* ------------------------------------------------------------- philosophy */
+
+export const philosophy = [
+  {
+    kicker: "Research",
+    title: "Nanotechnology first",
+    body: "Every product in the range is nanotechnology based. At one-billionth of a meter the ceramic composite forms a continuous film, not a layer of paint sitting on top of the problem.",
+    image: "/img/bg/nano-spheres.webp",
+    span: "wide" as const,
+  },
+  {
+    kicker: "Evidence",
+    title: "Measured, not claimed",
+    body: "Surface and ambient temperatures are logged before the first coat and after the second. The delta handed over is an instrument reading.",
+    image: "/img/proof/fluke-40.webp",
+    span: "narrow" as const,
+  },
+  {
+    kicker: "Durability",
+    title: "Twenty years of proving",
+    body: "Seven years of research on a technology already proven in the field for twenty years, reformulated for the Gulf temperature band.",
+    image: "/img/bg/research-lab.webp",
+    span: "narrow" as const,
+  },
+  {
+    kicker: "Stewardship",
+    title: "Decarbonising, continually",
+    body: "Lower roof temperature is lower air-conditioning load, which is lower cost and lower carbon. The saving compounds every year the coating stays on.",
+    image: "/img/bg/co2-sustainability.webp",
+    span: "wide" as const,
+  },
+];
+
+/* ------------------------------------------------------------- the lenses */
+
+export const lenses = [
+  {
+    n: "I",
+    title: "Substrate",
+    body: "Metal, concrete, asbestos or glass — each fails differently under heat, and each takes a different formulation. The substrate decides the product before anything else.",
+  },
+  {
+    n: "II",
+    title: "Preparation",
+    body: "Good surface preparation is mandatory. Micro dust and loose mortar are removed with SurfaKlean, which is eco-friendly and does not damage reinforcement.",
+  },
+  {
+    n: "III",
+    title: "Thermal load",
+    body: "The temperature band the surface actually sits in — 63°C to 79°C across the bands observed in the UAE — sets the number of coats and the expected delta.",
+  },
+  {
+    n: "IV",
+    title: "Water path",
+    body: "Where water enters, and whether it must be stopped before coating. AQUAPLUG travels with water into the crack and seals it from within.",
+  },
+];
+
+/* ------------------------------------------------------------ chart data */
+
+/**
+ * Coated vs uncoated readings, all transcribed from the catalogue.
+ * Two series only — colours validated against the #FAFAF9 surface.
+ */
+export const thermalReadings = [
+  { label: "Container roof", sub: "10-ft container, UAE", uncoated: 70.7, coated: 46.3 },
+  { label: "Inside ceiling", sub: "same container", uncoated: 46.1, coated: 30.8 },
+  { label: "Miniature container", sub: "outer surface", uncoated: 69.7, coated: 36.5 },
+  { label: "Industrial shed roof", sub: "multiple sheds", uncoated: 57.4, coated: 36.1 },
+];
+
+export const emissionsSplit = {
+  total: "1,950 Mt",
+  share: 3.94,
+  parts: [
+    { label: "Temperature control", value: 531, note: "energy expended to cool" },
+    { label: "Humidity removal", value: 599, note: "energy expended to dehumidify" },
+  ],
+};
+
+export const energyScenarios = [
+  { label: "At 18°C reduction", kwh: 1252800, cost: 476064 },
+  { label: "At 24°C reduction", kwh: 1008000, cost: 383040 },
 ];

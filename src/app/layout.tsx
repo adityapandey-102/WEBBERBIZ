@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
+import { Cormorant_Garamond, Jost, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { company } from "@/lib/data";
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const jost = Jost({
+  variable: "--font-jost",
   subsets: ["latin"],
   display: "swap",
 });
@@ -34,8 +36,7 @@ export const metadata: Metadata = {
     "Webberbiz Trading LLC supplies nanotechnology-based ceramic composite thermal coating and waterproofing for metal and concrete surfaces across the UAE and GCC. Roof temperature reductions of 24°C to 30°C.",
   openGraph: {
     title: `${company.name} — Aligning to sustainability`,
-    description:
-      "Nanotechnology-based thermal coating and waterproofing for the UAE and GCC.",
+    description: "Nanotechnology-based thermal coating and waterproofing for the UAE and GCC.",
     type: "website",
   },
 };
@@ -44,9 +45,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${inter.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${jost.variable} ${jetbrains.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-bg text-ink">
+      <body className="flex min-h-full flex-col bg-bg text-body">
         <SmoothScroll>
           <Header />
           <main className="flex-1">{children}</main>

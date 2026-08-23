@@ -1,30 +1,29 @@
 export default function Marquee({
   words,
-  duration = 42,
+  duration = 52,
   className = "",
 }: {
   words: string[];
   duration?: number;
   className?: string;
 }) {
-  // Duplicated once so the -50% keyframe loops seamlessly.
   const run = [...words, ...words];
 
   return (
     <div
-      className={`relative flex overflow-hidden border-y border-line bg-surface/60 py-5 ${className}`}
+      className={`relative flex overflow-hidden border-y border-line py-7 ${className}`}
       aria-hidden="true"
     >
       <div
-        className="marquee-track flex shrink-0 items-center gap-10 pr-10"
+        className="marquee-track flex shrink-0 items-center gap-12 pr-12"
         style={{ ["--dur" as string]: `${duration}s` }}
       >
         {run.map((w, i) => (
-          <span key={i} className="flex shrink-0 items-center gap-10">
-            <span className="font-display text-lg font-medium tracking-tight text-muted sm:text-xl">
+          <span key={i} className="flex shrink-0 items-center gap-12">
+            <span className="font-display text-2xl font-light tracking-tight text-ink/70 sm:text-3xl">
               {w}
             </span>
-            <span className="h-1.5 w-1.5 shrink-0 rotate-45 bg-accent" />
+            <span className="h-1 w-1 shrink-0 rounded-full bg-faint" />
           </span>
         ))}
       </div>

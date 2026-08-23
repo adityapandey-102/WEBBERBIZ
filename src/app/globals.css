@@ -1,31 +1,36 @@
 @import "tailwindcss";
 
 @theme {
-  /* Light palette, anchored on the inspiration's green/white system */
-  --color-bg: #ffffff;
-  --color-surface: #f6f7f4;
-  --color-surface-2: #eef1ea;
-  --color-surface-3: #e4e8dd;
-  --color-ink: #0f1a13;
-  --color-muted: #5c6a60;
-  --color-faint: #8d968f;
-  --color-line: #e3e7de;
-  --color-accent: #1f5a3d;
-  --color-accent-hot: #2a7a52;
-  --color-accent-deep: #123526;
-  --color-cool: #2e6f8e;
-  --color-cool-deep: #1d5570;
-  --color-warm: #c2632c;
+  /* Surfaces — warm off-white, as the inspiration */
+  --color-bg: #fafaf9;
+  --color-surface: #f4f4f1;
+  --color-surface-2: #eeeee9;
+  --color-line: #e6e6e1;
+  --color-line-soft: #efefea;
 
-  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
-  --font-mono: var(--font-mono-jb), "JetBrains Mono", ui-monospace, monospace;
+  /* Ink */
+  --color-ink: #2f4f4d; /* deep teal — display headings */
+  --color-ink-strong: #17201f; /* near-black — sans headings */
+  --color-body: #6e6e6e;
+  --color-muted: #8e8e88;
+  --color-faint: #a8a8a2;
+  --color-black: #0a0a0a;
+
+  /* Accent + data */
+  --color-accent: #2f4f4d;
+  --color-accent-soft: #486e6b;
+  --color-data-cool: #2f9c7f; /* coated — validated pair */
+  --color-data-hot: #d2691e; /* uncoated — validated pair */
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-jost), "Jost", system-ui, sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, monospace;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
-  --header-h: 76px;
+  --header-h: 84px;
 }
 
 * {
@@ -35,14 +40,14 @@
 
 body {
   background: var(--color-bg);
-  color: var(--color-ink);
+  color: var(--color-body);
   font-family: var(--font-sans);
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-ink);
+  color: #fff;
 }
 
 /* Lenis */
@@ -57,44 +62,102 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-surface);
+  background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface-3);
+  background: #d8d8d2;
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
+  background: var(--color-ink);
 }
 
-/* ---- Reveal primitives driven by GSAP ---- */
+/* ---------------------------------------------------------- type helpers */
+
+/* The signature two-line heading: roman teal over grey italic. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 0.98;
+  color: var(--color-ink);
+}
+.display-italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-faint);
+  letter-spacing: -0.015em;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-ink);
+  flex: none;
+}
+
+/* ------------------------------------------------------------- primitives */
+
 .rv {
   opacity: 0;
   will-change: transform, opacity;
 }
 
-/* Grain overlay — very light on a white ground */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.022;
-  z-index: 2;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* Card with the soft top-left wash the inspiration uses */
+.lux-card {
+  background: linear-gradient(135deg, #f7f7f5 0%, #f2f2ee 55%, #efefe9 100%);
+  border: 1px solid var(--color-line);
+  border-radius: 22px;
 }
 
-/* Soft section-to-section transition — the inspiration's "cloud" wipe */
+/* Word-by-word scroll reveal: words start blurred and pale, sharpen on scrub */
+.word {
+  display: inline-block;
+  filter: blur(7px);
+  opacity: 0.28;
+  color: var(--color-faint);
+  transition: none;
+  will-change: filter, opacity, color;
+}
+
+/* Soft cloud wipe between the hero and the page body */
+.cloud-wipe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 46vh;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    radial-gradient(60% 70% at 20% 100%, var(--color-bg) 38%, transparent 72%),
+    radial-gradient(55% 65% at 52% 104%, var(--color-bg) 40%, transparent 74%),
+    radial-gradient(60% 72% at 84% 100%, var(--color-bg) 38%, transparent 72%),
+    linear-gradient(to top, var(--color-bg) 26%, transparent 78%);
+}
+
 .haze {
   position: absolute;
   left: 0;
   right: 0;
-  height: 220px;
+  height: 200px;
   pointer-events: none;
   z-index: 3;
 }
@@ -107,12 +170,6 @@ html.lenis body {
   background: linear-gradient(to top, var(--color-bg), transparent);
 }
 
-.rule {
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--color-line), transparent);
-}
-
-/* Marquee */
 @keyframes marquee {
   from {
     transform: translate3d(0, 0, 0);
@@ -122,28 +179,12 @@ html.lenis body {
   }
 }
 .marquee-track {
-  animation: marquee var(--dur, 38s) linear infinite;
+  animation: marquee var(--dur, 46s) linear infinite;
 }
 .marquee-track:hover {
   animation-play-state: paused;
 }
 
-@keyframes cue {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.2;
-  }
-  50% {
-    transform: translateY(24px);
-    opacity: 1;
-  }
-}
-.scroll-cue {
-  animation: cue 2.4s ease-in-out infinite;
-}
-
-/* Accent underline link */
 .ulink {
   position: relative;
 }
@@ -151,13 +192,13 @@ html.lenis body {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -2px;
+  bottom: -3px;
   height: 1px;
   width: 100%;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.5s var(--ease-out-expo);
+  transition: transform 0.55s var(--ease-out-expo);
 }
 .ulink:hover::after {
   transform: scaleX(1);
@@ -169,8 +210,12 @@ html.lenis body {
     opacity: 1 !important;
     transform: none !important;
   }
-  .marquee-track,
-  .scroll-cue {
+  .word {
+    filter: none !important;
+    opacity: 1 !important;
+    color: inherit !important;
+  }
+  .marquee-track {
     animation: none;
   }
   *,

@@ -1,17 +1,17 @@
 import Image from "next/image";
-import { metalApplications } from "@/lib/data";
+import { leakageAreas, metalApplications } from "@/lib/data";
 import { Reveal } from "../motion";
 import { SectionHead } from "../ui";
 
-/** The catalogue's own 3D application models, over the photographed reality. */
+/** A compact row of the catalogue's own models, at a size that supports the text. */
 const models = [
-  { src: "/img/apps/container.png", label: "Shipping containers" },
-  { src: "/img/apps/truck-trailer.png", label: "Trailer roofs" },
-  { src: "/img/apps/delivery-truck.png", label: "Temp-controlled trucks" },
+  { src: "/img/apps/container.png", label: "Containers" },
+  { src: "/img/apps/truck-trailer.png", label: "Trailers" },
+  { src: "/img/apps/industrial-shed.png", label: "Sheds" },
   { src: "/img/apps/portacabin.png", label: "Portacabins" },
-  { src: "/img/apps/industrial-shed.png", label: "Industrial sheds" },
-  { src: "/img/apps/villa.png", label: "Villas & homes" },
+  { src: "/img/apps/villa.png", label: "Villas" },
   { src: "/img/apps/mosque.png", label: "Mosques" },
+  { src: "/img/apps/delivery-truck.png", label: "Cold trucks" },
   { src: "/img/apps/container-cafe.png", label: "Container builds" },
 ];
 
@@ -23,57 +23,78 @@ export default function Applications() {
           eyebrow="Umpteen applications"
           line1="Anywhere the sun"
           line2="reaches a surface."
-          body="On metal: containers, bus and train roof tops, industrial and farm sheds, oil field installations, bus shelters, train stations, refrigerated delivery trucks and water storage tanks. On concrete: buildings, homes, villas and mosques, on rooftops and walls alike."
+          body="One temperature problem, two substrates. On metal it is containers, roofs and rolling stock; on concrete it is buildings, homes, villas and mosques — rooftops and walls alike."
         />
 
-        {/* Model set */}
-        <Reveal stagger className="mt-20 grid grid-cols-2 gap-4 md:grid-cols-4">
+        {/* Two columns of surfaces, set as lists rather than galleries */}
+        <div className="mt-20 grid gap-x-16 gap-y-12 lg:grid-cols-2">
+          <Reveal>
+            <div className="flex items-baseline justify-between border-b border-line pb-4">
+              <h3 className="font-display text-[1.4rem] text-ink">On metal</h3>
+              <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
+                HEAT PLUG
+              </span>
+            </div>
+            <ul className="mt-1 grid grid-cols-1 sm:grid-cols-2">
+              {metalApplications.map((a, i) => (
+                <li
+                  key={a.label}
+                  className="flex items-baseline gap-3.5 border-b border-line-soft py-3.5"
+                >
+                  <span className="font-mono text-[10px] tracking-[0.16em] text-faint">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[14px] text-body">{a.label}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-[12.5px] leading-relaxed text-faint">
+              Specified for anti-corrosive properties as well as thermal performance.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.06}>
+            <div className="flex items-baseline justify-between border-b border-line pb-4">
+              <h3 className="font-display text-[1.4rem] text-ink">On concrete</h3>
+              <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
+                AQUAPLUG
+              </span>
+            </div>
+            <ul className="mt-1 grid grid-cols-1 sm:grid-cols-2">
+              {leakageAreas.map((a, i) => (
+                <li
+                  key={a}
+                  className="flex items-baseline gap-3.5 border-b border-line-soft py-3.5"
+                >
+                  <span className="font-mono text-[10px] tracking-[0.16em] text-faint">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[14px] text-body">{a}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-[12.5px] leading-relaxed text-faint">
+              Buildings, homes, villas and mosques, on rooftops and walls — plus animal enclosures,
+              farmhouses and walkways.
+            </p>
+          </Reveal>
+        </div>
+
+        {/* Compact model strip */}
+        <Reveal stagger className="mt-16 grid grid-cols-4 gap-3 border-t border-line pt-10 sm:grid-cols-8">
           {models.map((m) => (
-            <figure key={m.src} className="group lux-card px-4 py-6 text-center">
-              <div className="relative mx-auto aspect-[4/3] w-full">
+            <figure key={m.src} className="group text-center">
+              <div className="relative mx-auto aspect-square w-full max-w-[92px]">
                 <Image
                   src={m.src}
                   alt={m.label}
                   fill
-                  sizes="(max-width: 768px) 45vw, 22vw"
-                  className="object-contain transition-transform duration-1000 ease-out-expo group-hover:scale-[1.07]"
+                  sizes="92px"
+                  className="object-contain transition-transform duration-700 ease-out-expo group-hover:scale-110"
                 />
               </div>
-              <figcaption className="mt-4 text-[12px] font-medium uppercase tracking-[0.14em] text-muted">
+              <figcaption className="mt-2 text-[10px] font-medium uppercase tracking-[0.12em] text-faint">
                 {m.label}
-              </figcaption>
-            </figure>
-          ))}
-        </Reveal>
-
-        {/* Heavy industry */}
-        <Reveal className="mt-6 overflow-hidden rounded-2xl border border-line">
-          <div className="relative aspect-[21/9]">
-            <Image
-              src="/img/bg/oil-refinery.webp"
-              alt="Oil field installation"
-              fill
-              sizes="(max-width: 1024px) 92vw, 1200px"
-              className="object-cover"
-            />
-          </div>
-        </Reveal>
-
-        {/* Photographed reality */}
-        <Reveal stagger className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          {metalApplications.map((a) => (
-            <figure key={a.label} className="group">
-              <div className="relative aspect-square overflow-hidden rounded-xl border border-line">
-                <Image
-                  src={a.image}
-                  alt={a.label}
-                  fill
-                  sizes="(max-width: 640px) 45vw, 18vw"
-                  className="object-cover transition-transform duration-1000 ease-out-expo group-hover:scale-[1.07]"
-                />
-              </div>
-              <figcaption className="mt-2.5 text-[12.5px] leading-snug text-body">
-                {a.label}
               </figcaption>
             </figure>
           ))}

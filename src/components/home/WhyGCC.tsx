@@ -44,19 +44,6 @@ export default function WhyGCC() {
           body="Decarbonisation is the process of reducing or eliminating carbon emissions from a sector of the economy. In a business context it means continually lowering carbon in everything your business does — and in the Gulf, that conversation starts on the roof."
         />
 
-        {/* The commitment, pictured */}
-        <Reveal className="mt-16 overflow-hidden rounded-2xl border border-line">
-          <div className="relative aspect-[21/9]">
-            <Image
-              src="/img/flags/uae-waving.png"
-              alt="Flag of the United Arab Emirates"
-              fill
-              sizes="(max-width: 1024px) 92vw, 1200px"
-              className="object-cover"
-            />
-          </div>
-        </Reveal>
-
         {/* Editorial stat list */}
         <Reveal stagger className="mt-20">
           {facts.map((f) => (

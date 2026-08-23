@@ -6,35 +6,40 @@ import { gsap, initGsap, prefersReducedMotion } from "@/lib/gsap";
 import { Eyebrow } from "./ui";
 import { LineReveal, Reveal } from "./motion";
 
-/** Sub-page hero: centred display type over a pale ground, with a scaling plate. */
+/**
+ * Sub-page hero: the same full-bleed background treatment as the home hero,
+ * so every page opens the same way.
+ */
 export default function PageHero({
   eyebrow,
   line1,
   line2,
   lede,
   image,
-  imageAlt = "",
 }: {
   eyebrow: string;
   line1: string;
   line2?: string;
   lede: string;
   image: string;
-  imageAlt?: string;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
-  const plate = useRef<HTMLDivElement>(null);
+  const bg = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     initGsap();
     const el = wrap.current;
-    const img = plate.current;
+    const img = bg.current;
     if (!el || !img || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(img, { scale: 1.12, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.6, ease: "power3.out" });
+      gsap.fromTo(
+        img,
+        { scale: 1.12, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1.8, ease: "power3.out" },
+      );
       gsap.to(img, {
-        yPercent: 12,
+        scale: 1.1,
         ease: "none",
         scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
       });
@@ -44,14 +49,23 @@ export default function PageHero({
   }, []);
 
   return (
-    <div ref={wrap} className="relative overflow-hidden pt-[var(--header-h)]">
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{ background: "linear-gradient(to bottom, #eef3f5 0%, var(--color-bg) 62%)" }}
-      />
+    <div ref={wrap} className="relative overflow-hidden">
+      <div className="absolute inset-0 -z-10">
+        <div ref={bg} className="relative h-full w-full will-change-transform">
+          <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" />
+        </div>
+        {/* Light scrim keeps the deep-teal display face readable over the photograph */}
+        <div className="absolute inset-0 bg-bg/48" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(250,250,249,0.88) 0%, rgba(250,250,249,0.55) 40%, rgba(250,250,249,0.3) 68%, var(--color-bg) 100%)",
+          }}
+        />
+      </div>
 
-      <div className="mx-auto w-full max-w-[1280px] px-5 pb-16 pt-16 text-center sm:px-8 md:pb-20 md:pt-20 lg:px-12">
+      <div className="mx-auto w-full max-w-[1280px] px-5 pb-24 pt-[calc(var(--header-h)+9vh)] text-center sm:px-8 md:pb-28 lg:px-12">
         <Eyebrow>{eyebrow}</Eyebrow>
 
         <LineReveal
@@ -63,22 +77,8 @@ export default function PageHero({
         />
 
         <Reveal>
-          <p className="mx-auto mt-8 max-w-[62ch] text-[15.5px] leading-[1.78] text-body">{lede}</p>
+          <p className="mx-auto mt-8 max-w-[60ch] text-[15.5px] leading-[1.78] text-body">{lede}</p>
         </Reveal>
-      </div>
-
-      {/* Plate */}
-      <div className="mx-auto w-[min(1180px,92vw)] px-0">
-        <div ref={plate} className="relative aspect-[21/9] overflow-hidden rounded-2xl">
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            priority
-            sizes="(max-width: 1180px) 92vw, 1180px"
-            className="object-cover"
-          />
-        </div>
       </div>
     </div>
   );

@@ -8,13 +8,13 @@ import { heroMetrics } from "@/lib/data";
 import { Arrow } from "../ui";
 
 /**
- * A tall scroll track with a sticky stage: the headline holds, the architecture
- * plate grows from a plate into a full-bleed image, and a cloud wipe hands over
- * to the page body.
+ * Full-bleed background photograph behind the type, with a light scrim so the
+ * deep-teal display face keeps its contrast. The plate slowly pushes in as the
+ * section scrolls, and the copy lifts away.
  */
 export default function Hero() {
   const track = useRef<HTMLDivElement>(null);
-  const plate = useRef<HTMLDivElement>(null);
+  const bg = useRef<HTMLDivElement>(null);
   const copy = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,12 +23,11 @@ export default function Hero() {
     if (!el) return;
 
     if (prefersReducedMotion()) {
-      gsap.set([plate.current, copy.current], { clearProps: "all" });
+      gsap.set([bg.current, copy.current], { clearProps: "all" });
       return;
     }
 
     const ctx = gsap.context(() => {
-      // Entrance — runs at every width.
       gsap
         .timeline({ defaults: { ease: "power4.out" } })
         .fromTo(
@@ -40,38 +39,26 @@ export default function Hero() {
         .fromTo("[data-h-sub]", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1 }, 0.7)
         .fromTo("[data-h-cta]", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1 }, 0.85)
         .fromTo(
-          plate.current,
-          { scale: 0.82, opacity: 0, yPercent: 8 },
-          { scale: 1, opacity: 1, yPercent: 0, duration: 1.7, ease: "power3.out" },
-          0.3,
+          "[data-h-metrics]",
+          { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 1 },
+          1.0,
+        )
+        .fromTo(
+          bg.current,
+          { scale: 1.14, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 2.2, ease: "power3.out" },
+          0,
         );
 
       const mm = gsap.matchMedia();
-
-      // Desktop: the plate grows to full bleed while the copy lifts away, and the
-      // metric bar rides in on the same scrub.
       mm.add("(min-width: 768px)", () => {
         gsap
           .timeline({
             scrollTrigger: { trigger: el, start: "top top", end: "bottom bottom", scrub: 0.8 },
           })
-          .to(plate.current, { scale: 1.46, yPercent: -8, ease: "none" }, 0)
-          .to(copy.current, { yPercent: -34, opacity: 0, ease: "none" }, 0)
-          .fromTo(
-            "[data-h-metrics]",
-            { opacity: 0, y: 26 },
-            { opacity: 1, y: 0, ease: "none" },
-            0.15,
-          );
-      });
-
-      // Mobile: there is no sticky track to scrub, so simply reveal the metrics.
-      mm.add("(max-width: 767px)", () => {
-        gsap.fromTo(
-          "[data-h-metrics]",
-          { opacity: 0, y: 22 },
-          { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: "power3.out" },
-        );
+          .to(bg.current, { scale: 1.16, ease: "none" }, 0)
+          .to(copy.current, { yPercent: -28, opacity: 0, ease: "none" }, 0);
       });
     }, el);
 
@@ -79,24 +66,34 @@ export default function Hero() {
   }, []);
 
   return (
-    /* Sticky stage only where there is height for it; on phones the hero flows normally
-       so the copy, the plate and the metric bar all get room. */
-    <div ref={track} className="relative h-auto md:h-[210vh]">
-      <section className="flex flex-col overflow-hidden md:sticky md:top-0 md:h-screen">
-        {/* Pale sky ground */}
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10"
-          style={{
-            background:
-              "linear-gradient(to bottom, #eef3f5 0%, #f4f6f5 38%, var(--color-bg) 78%)",
-          }}
-        />
+    <div ref={track} className="relative h-auto md:h-[190vh]">
+      <section className="relative flex min-h-[100svh] flex-col overflow-hidden md:sticky md:top-0 md:h-screen">
+        {/* Background plate */}
+        <div className="absolute inset-0 -z-10">
+          <div ref={bg} className="relative h-full w-full will-change-transform">
+            <Image
+              src="/img/bg/dubai-aerial.webp"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+          {/* Light scrim keeps the deep-teal type readable over the photograph */}
+          <div className="absolute inset-0 bg-bg/45" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(250,250,249,0.9) 0%, rgba(250,250,249,0.62) 34%, rgba(250,250,249,0.34) 62%, rgba(250,250,249,0.82) 90%, var(--color-bg) 100%)",
+            }}
+          />
+        </div>
 
-        <div className="relative flex h-full flex-col justify-start pt-[calc(var(--header-h)+3vh)]">
-          {/* Copy */}
-          <div ref={copy} className="relative z-20 px-5 text-center sm:px-8">
-            <h1 className="display mx-auto max-w-[19ch] text-[clamp(2.6rem,7.2vw,5.6rem)] leading-[0.96]">
+        <div className="relative flex flex-1 flex-col justify-center px-5 pb-12 pt-[calc(var(--header-h)+8vh)] sm:px-8 md:pb-16">
+          <div ref={copy} className="mx-auto w-full max-w-[1280px] text-center">
+            <h1 className="display mx-auto max-w-[19ch] text-[clamp(2.6rem,7.4vw,5.8rem)] leading-[0.96]">
               {["Precision in thermal", "performance."].map((line, i) => (
                 <span key={line} data-h-line className="block overflow-hidden pb-[0.05em]">
                   <span
@@ -111,7 +108,7 @@ export default function Hero() {
 
             <p
               data-h-sub
-              className="mx-auto mt-7 max-w-[62ch] text-[15.5px] leading-[1.75] text-body opacity-0"
+              className="mx-auto mt-8 max-w-[60ch] text-[15.5px] leading-[1.78] text-body opacity-0"
             >
               Nanotechnology-based ceramic composite coatings that cut roof temperatures by 24°C to
               30°C on metal and concrete — reducing air-conditioning load, running cost and carbon
@@ -120,7 +117,7 @@ export default function Hero() {
 
             <div
               data-h-cta
-              className="mt-9 flex flex-wrap items-center justify-center gap-3 opacity-0"
+              className="mt-10 flex flex-wrap items-center justify-center gap-3 opacity-0"
             >
               <Link
                 href="/products"
@@ -131,46 +128,27 @@ export default function Hero() {
               </Link>
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2.5 rounded-full border border-line bg-bg px-7 py-3.5 text-[13.5px] font-semibold text-ink-strong transition-all duration-500 hover:border-ink/40 hover:bg-surface"
+                className="group inline-flex items-center gap-2.5 rounded-full border border-ink/20 bg-bg/80 px-7 py-3.5 text-[13.5px] font-semibold text-ink-strong backdrop-blur-sm transition-all duration-500 hover:border-ink/45 hover:bg-bg"
               >
                 Request a Survey
                 <Arrow />
               </Link>
             </div>
-          </div>
 
-          {/* Architecture plate */}
-          <div className="relative z-10 mt-10 h-[46vh] md:mt-auto md:h-auto md:flex-1">
+            {/* Metric row — hairline separators, no heavy card */}
             <div
-              ref={plate}
-              className="absolute inset-x-0 bottom-0 top-0 origin-bottom will-change-transform md:top-[6vh]"
+              data-h-metrics
+              className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-y-8 opacity-0 sm:grid-cols-3 lg:grid-cols-5"
             >
-              <div className="relative mx-auto h-full w-[min(1180px,92vw)] overflow-hidden rounded-t-[14px]">
-                <Image
-                  src="/img/projects/villas.webp"
-                  alt="Villas finished with Webberbiz thermal coating"
-                  fill
-                  priority
-                  sizes="(max-width: 1180px) 92vw, 1180px"
-                  className="object-cover object-[center_62%]"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Metric bar */}
-          <div
-            data-h-metrics
-            className="relative z-20 mx-auto mb-10 w-[min(1120px,92vw)] opacity-0 md:mb-[7vh]"
-          >
-            {/* Light glass so the figures stay legible over sky or over architecture. */}
-            <div className="grid grid-cols-2 divide-x divide-y divide-line/70 overflow-hidden rounded-2xl border border-white/70 bg-white/78 backdrop-blur-xl sm:grid-cols-3 sm:divide-y-0 lg:grid-cols-5">
-              {heroMetrics.map((m) => (
-                <div key={m.label} className="px-4 py-5 text-center sm:px-5">
-                  <div className="font-display text-[26px] font-semibold tracking-tight text-ink">
+              {heroMetrics.map((m, i) => (
+                <div
+                  key={m.label}
+                  className={`px-3 ${i > 0 ? "lg:border-l lg:border-ink/12" : ""}`}
+                >
+                  <div className="font-display text-[1.65rem] leading-none text-ink">
                     {m.display}
                   </div>
-                  <div className="mt-1.5 text-[9.5px] font-medium uppercase tracking-[0.18em] text-muted">
+                  <div className="mt-2.5 text-[9.5px] font-medium uppercase tracking-[0.18em] text-muted">
                     {m.label}
                   </div>
                 </div>
@@ -178,8 +156,6 @@ export default function Hero() {
             </div>
           </div>
         </div>
-
-        <div className="cloud-wipe" />
       </section>
     </div>
   );

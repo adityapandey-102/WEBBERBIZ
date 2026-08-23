@@ -12,7 +12,7 @@ export default function Range() {
           eyebrow="Product range"
           line1="Selective, and highly"
           line2="specialised."
-          body="Five formulations, each built for one substrate and one failure mode — thermal load on metal, thermal load on concrete, water ingress, surface preparation, and glass."
+          body="Five specialised products for the UAE and GCC, each built for one substrate and one failure mode — with COOL G for glass coming soon."
         />
 
         <Reveal stagger className="mt-20 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

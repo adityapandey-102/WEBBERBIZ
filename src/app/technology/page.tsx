@@ -71,17 +71,6 @@ export default function TechnologyPage() {
                 </div>
               </div>
 
-              <figure className="mt-5 overflow-hidden rounded-2xl border border-line">
-                <div className="relative aspect-[16/9]">
-                  <Image
-                    src="/img/bg/nanotechnology.webp"
-                    alt="Nanoscale particle structure"
-                    fill
-                    sizes="(max-width: 1024px) 90vw, 42vw"
-                    className="object-cover"
-                  />
-                </div>
-              </figure>
             </Reveal>
           </div>
         </div>

@@ -54,6 +54,12 @@ export type Product = {
   wordmark?: string;
   category: string;
   base?: string;
+  /** Secondary label from the product range slide, e.g. High durability. */
+  note?: string;
+  /** Nett weight as printed on the pack. */
+  weight?: string;
+  /** What the packaging itself states. */
+  packaging?: string;
   headline: string;
   blurb: string;
   image: string;
@@ -67,10 +73,13 @@ export type Product = {
 
 export const products: Product[] = [
   {
-    slug: "heatplug-metal",
+    slug: "heatplug-containers",
     name: "HEAT PLUG",
     wordmark: "/img/brand/wordmark-heatplug.png",
-    category: "Coating for all metal surfaces",
+    category: "Coating for metal containers",
+    note: "High durability",
+    weight: "20 kg nett when packed",
+    packaging: "Nanotechnology based thermal coating composite compound, for external metal surfaces — protection in high temperatures.",
     headline:
       "A nanotechnology-based ceramic composite thermal coating, specialised for metallic surfaces.",
     blurb:
@@ -78,34 +87,36 @@ export const products: Product[] = [
     image: "/img/products/heatplug-metal.png",
     tone: "hot",
     properties: [
+      "High durability",
       "Anticorrosive",
       "Anti algae",
       "Anti fungal",
       "Crack resistant",
-      "High durability",
     ],
     detail: [
-      "The coating blankets the surface and keeps the temperature away to the degree of the delta found on the surface.",
-      "Measured on a 10-foot container: 70.7°C uncoated against 46.3°C coated on the metal roof, and 46.1°C against 30.8°C on the inside ceiling.",
+      "A proof of concept carried out on a container in the UAE on 26-27 September 2023 recorded a surface temperature drop of 24°C and a room temperature drop of 15°C.",
+      "In a miniature container the uncoated outer surface reached 69.7°C against 36.5°C coated - a delta reduction of 20.9°.",
     ],
     variants: [
-      { src: "/img/products/heatplug-metal-blue.png", caption: "External metal surfaces" },
+      { src: "/img/products/heatplug-container.png", caption: "20 kg pack" },
     ],
   },
   {
-    slug: "heatplug-containers",
+    slug: "heatplug-metal",
     name: "HEAT PLUG",
     wordmark: "/img/brand/wordmark-heatplug.png",
-    category: "Coating for metal containers",
-    headline: "High-durability thermal coating engineered for container-grade steel.",
+    category: "Coating for all metal surfaces",
+    weight: "20 kg nett when packed",
+    packaging: "Nanotechnology based thermal coating composite compound, for external metal surfaces — protection in high temperatures.",
+    headline: "The same ceramic composite, specified across every external metal surface.",
     blurb:
-      "The container-specific formulation of HEAT PLUG, built for the temperature dynamics of the UAE and wider GCC where surfaces routinely reach 63°C to 79°C.",
-    image: "/img/products/heatplug-container.png",
+      "Built for the temperature dynamics of the UAE and wider GCC, where surfaces are observed between 63°C and 79°C. Applied to industrial sheds, roofs, tanks and rolling stock alike.",
+    image: "/img/products/heatplug-metal-blue.png",
     tone: "hot",
-    properties: ["High durability", "Anticorrosive", "Anti fungal", "Weather resistant"],
+    properties: ["Anticorrosive", "Anti algae", "Anti fungal", "Crack resistant"],
     detail: [
-      "A proof of concept carried out on a container in the UAE on 26-27 September 2023 recorded a surface temperature drop of 24°C and a room temperature drop of 15°C.",
-      "In a miniature container the uncoated outer surface reached 69.7°C against 36.5°C coated - a delta of 20.9°.",
+      "The coating blankets the surface and keeps the temperature away to the degree of the delta found on the surface.",
+      "Measured on a 10-foot container: 70.7°C uncoated against 46.3°C coated on the metal roof, and 46.1°C against 30.8°C on the inside ceiling.",
     ],
   },
   {
@@ -114,6 +125,8 @@ export const products: Product[] = [
     wordmark: "/img/brand/wordmark-heatplug.png",
     category: "Coating for cemented surfaces",
     base: "Water",
+    weight: "20 kg nett when packed",
+    packaging: "Nanotechnology based thermal coating composite compound, for concreted and cemented surfaces.",
     headline:
       "A nanotechnology-based ceramic composite thermal coating, specialised for cement and concrete surfaces.",
     blurb:
@@ -128,12 +141,12 @@ export const products: Product[] = [
       "Water base",
     ],
     detail: [
-      "Reduces temperature up to 24°C for concrete surfaces. The elongation characteristics resist cracking to a large extent, and the coating resists bacterial or fungal activity.",
+      "Reduces temperature up to 24°C for concrete surfaces. The elongation characteristics resist cracking to a large extent, and the coating resists any bacterial or fungal activity.",
       "Applied as two layers before a coloured paint is given. Also suited to animal enclosures in zoos, farmhouses, walkways and the outside areas of masjids.",
     ],
     variants: [
-      { src: "/img/products/heatplug-concrete-lg.png", caption: "5 kg pack" },
-      { src: "/img/products/heatplug-concrete-hero.png", caption: "Site pack" },
+      { src: "/img/products/heatplug-concrete-lg.png", caption: "20 kg pack" },
+      { src: "/img/products/heatplug-concrete-hero.png", caption: "On site" },
     ],
   },
   {
@@ -142,6 +155,8 @@ export const products: Product[] = [
     wordmark: "/img/brand/wordmark-aquaplug.png",
     category: "Waterproof solution for cemented surfaces",
     base: "Water",
+    weight: "20 kg nett when packed",
+    packaging: "Nanotechnology based waterproofing compound — seals cracks on cemented surfaces.",
     headline:
       "A nanotechnology-based composite waterproofing solution for cement concrete surfaces.",
     blurb:
@@ -153,21 +168,26 @@ export const products: Product[] = [
       "Where the market provides a parchment or layer that leaves the crack itself intact, the nano particulates accompany water into the crack to seal it.",
       "Proven waterproofing technology for the past 20 years. The composite-based compound works on wicking action, is applied without disturbing the existing surface, and leakage stops in 8 hours.",
     ],
-    variants: [
-      { src: "/img/products/aquaplug-lg.png", caption: "Site pack" },
-    ],
+    variants: [{ src: "/img/products/aquaplug-lg.png", caption: "20 kg pack" }],
   },
   {
     slug: "surfaklean",
     name: "SURFAKLEAN",
     wordmark: "/img/brand/wordmark-surfaklean.png",
     category: "Universal cleaner concentrate",
+    packaging: "Surface cleaning compound — used on metal, concrete, tiles and plastic.",
     headline: "Surface cleaning and preparation compound.",
     blurb:
-      "An eco-friendly product that does not damage reinforcement. Removes micro dust and loose mortar easily, and is the recommended cleaning agent across the entire Webberbiz coating product line.",
+      "An eco-friendly product that does not damage reinforcement. Removes micro dust and loose mortar easily, and is recommended as the ideal cleaning agent for all Webberbiz coating product-line applications.",
     image: "/img/products/surfaklean.png",
     tone: "neutral",
-    properties: ["Eco-friendly", "Safe on reinforcement", "Removes micro dust", "Removes loose mortar"],
+    properties: [
+      "Eco-friendly",
+      "Safe on reinforcement",
+      "Removes micro dust",
+      "Removes loose mortar",
+      "Metal, concrete, tiles, plastic",
+    ],
     detail: [
       "It has a special property to remove emerging dust and dirt through its detergents and support the cleaning process.",
       "Good surface preparation is mandatory before any Webberbiz coating is applied - SurfaKlean is the recommended agent.",
@@ -177,14 +197,20 @@ export const products: Product[] = [
     slug: "coolg",
     name: "COOL G",
     category: "Thermal coating for glass",
+    packaging: "A nano technology product — blocks ultraviolet and infrared radiations.",
     headline: "Thermal coating for glass, of all types.",
     blurb:
-      "A nano technology product that blocks ultraviolet radiations. Coming soon to the Webberbiz range.",
+      "A nano technology product that blocks ultraviolet and infrared radiations. Coming soon to the Webberbiz range.",
     image: "/img/products/coolg.png",
     tone: "cool",
-    properties: ["Blocks UV radiation", "All glass types", "Nano technology"],
+    properties: [
+      "Blocks ultraviolet radiation",
+      "Blocks infrared radiation",
+      "Glass of all types",
+      "Nano technology",
+    ],
     detail: [],
-    variants: [{ src: "/img/brand/badge-coolg.png", caption: "Thermal coating for glass, of all types" }],
+    variants: [{ src: "/img/brand/badge-coolg.png", caption: "Thermal coating for glass" }],
     comingSoon: true,
   },
 ];
@@ -217,9 +243,9 @@ export const workingPrinciple = [
 ];
 
 export const temperatureBands = [
-  { region: "Observed band A", low: 63, high: 79 },
-  { region: "Observed band B", low: 68, high: 77 },
-  { region: "Observed band C", low: 66, high: 72 },
+  { region: "Site reading 1", low: 63, high: 79 },
+  { region: "Site reading 2", low: 68, high: 77 },
+  { region: "Site reading 3", low: 66, high: 72 },
 ];
 
 export const impacts = [
@@ -481,7 +507,7 @@ export const projects: Project[] = [
     title: "Multiple rooftops and parapet walls",
     scope: "HEAT PLUG · residential",
     body: "Thermal coating applied across multiple rooftops and parapet walls, reducing the temperature on the roof by between 20°C and 24°C.",
-    stat: { value: "24.1°C", label: "reduction" },
+    stat: { value: "20–24°C", label: "roof reduction" },
     images: [
       { src: "/img/projects/solar-work.webp", caption: "Working around solar" },
       { src: "/img/projects/solar-after.webp", caption: "Completed roof" },
@@ -495,19 +521,18 @@ export const projects: Project[] = [
 
 /* ------------------------------------------------------------ testimonials */
 
-export const testimonials = [
-  {
-    quote:
-      "We had many issues in our 24-year-old old house, especially with heat inside the house and the leakage due to cracks on my roof and wall. After multiple research, I found the team and handed over the job to repair and coat with the thermal product, which they demonstrated. The work was carried out very methodically and completed before the commitment date. My house is as beautiful and neat as a newly constructed one. There is no heat inside the house - it is fantastic, I can sleep peacefully, and I can walk on the terrace barefoot in the afternoon, it is so cool. The dampness and leakage also stopped, which I observed during heavy rains.",
-    name: "Mrs. Jagadamba",
-    role: "Retd. Section Chief - BSNL, Bangalore",
-  },
-  {
-    quote: "Excellent job team. Thank you for the great job done to our house.",
-    name: "Mrs. Kala",
-    role: "Life Coach & Former HP National Trainer",
-  },
-];
+/**
+ * The catalogue carries ONE testimonial, jointly credited to both signatories.
+ * It is reproduced here as a single quote rather than split between them.
+ */
+export const testimonial = {
+  quote:
+    "We had many issues in our 24-year-old old house, especially with heat inside the house and the leakage due to cracks on my roof and wall. After multiple research, I found the team and handed over the job to repair and coat with the thermal product, which they demonstrated. The work was carried out very methodically and completed the job before the commitment date. My house is as beautiful and neat as a newly constructed one. There is no heat inside the house — it is fantastic, I can sleep peacefully, and I can walk on the terrace barefoot in the afternoon, it is so cool. The dampness and leakage also stopped, which I observed during heavy rains. Excellent job team. Thank you for the great job done to our house.",
+  signatories: [
+    { name: "Mrs. Jagadamba", role: "Retd. Section Chief — BSNL, Bangalore" },
+    { name: "Mrs. Kala", role: "Life Coach & Former HP National Trainer" },
+  ],
+};
 
 /* ---------------------------------------------------------------- markets */
 
@@ -677,4 +702,35 @@ export const emissionsSplit = {
 export const energyScenarios = [
   { label: "At 18°C reduction", kwh: 1252800, cost: 476064 },
   { label: "At 24°C reduction", kwh: 1008000, cost: 383040 },
+];
+
+/**
+ * Instrument readings photographed in the catalogue's proof-of-concept pages.
+ * The photographs themselves are not shown; the readings they carry are kept here.
+ */
+export const fieldLog = [
+  {
+    subject: "Container wall, paired thermal gun",
+    uncoated: "71.9°C",
+    coated: "45.8°C",
+    delta: "−26.1°C",
+  },
+  {
+    subject: "Container wall, second station",
+    uncoated: "58.1°C",
+    coated: "35.4°C",
+    delta: "−22.7°C",
+  },
+  {
+    subject: "Outer surface vs inside, paired meters",
+    uncoated: "57.4°C",
+    coated: "42.4°C",
+    delta: "−15.0°C",
+  },
+];
+
+export const method = [
+  "Coated and uncoated test boxes are placed side by side under identical field conditions, so weather is held constant across the pair.",
+  "Surface temperature is taken with a thermal gun after the first coat and again after the second, so the contribution of each layer is visible.",
+  "Inside ambient is logged separately from surface temperature, because the figure that matters to a building is the one under the roof.",
 ];

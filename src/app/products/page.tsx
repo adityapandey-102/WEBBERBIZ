@@ -25,8 +25,8 @@ export default function ProductsPage() {
         eyebrow="Product range"
         line1="Selective, and highly"
         line2="specialised."
-        lede="Five formulations, each built for one substrate and one failure mode — thermal load on metal, thermal load on concrete, water ingress, surface preparation, and glass."
-        image="/img/bg/paint-cans.webp"
+        lede="Five specialised products for the UAE and GCC — thermal coating for metal containers, for all metal surfaces, for cemented surfaces, waterproofing, and surface preparation — with COOL G for glass coming soon."
+        image="/img/bg/brush-coating.webp"
       />
 
       <div className="px-5 sm:px-8 lg:px-12">
@@ -70,8 +70,31 @@ export default function ProductsPage() {
 
                   <p className="mt-5 text-[10.5px] font-medium uppercase tracking-[0.2em] text-faint">
                     {p.category}
+                    {p.note ? ` — ${p.note}` : ""}
                     {p.base ? ` · base ${p.base}` : ""}
                   </p>
+
+                  {/* What the pack itself states */}
+                  {(p.packaging || p.weight) && (
+                    <dl className="mt-7 divide-y divide-line border-y border-line">
+                      {p.packaging && (
+                        <div className="flex flex-col gap-1 py-3 sm:flex-row sm:gap-6">
+                          <dt className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.18em] text-faint">
+                            On the pack
+                          </dt>
+                          <dd className="text-[13.5px] leading-[1.7] text-body">{p.packaging}</dd>
+                        </div>
+                      )}
+                      {p.weight && (
+                        <div className="flex flex-col gap-1 py-3 sm:flex-row sm:gap-6">
+                          <dt className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.18em] text-faint">
+                            Nett weight
+                          </dt>
+                          <dd className="text-[13.5px] leading-[1.7] text-body">{p.weight}</dd>
+                        </div>
+                      )}
+                    </dl>
+                  )}
 
                   <LineReveal
                     as="h3"
@@ -105,7 +128,7 @@ export default function ProductsPage() {
                   </Reveal>
                 </div>
 
-                <Reveal className="flex flex-col items-center justify-center gap-4">
+                <Reveal className="flex items-center justify-center">
                   <div className="lux-card relative flex aspect-square w-full max-w-md items-center justify-center overflow-hidden">
                     <Image
                       src={p.image}
@@ -117,26 +140,6 @@ export default function ProductsPage() {
                     />
                   </div>
 
-                  {p.variants && (
-                    <div className="grid w-full max-w-md grid-cols-2 gap-4">
-                      {p.variants.map((v) => (
-                        <figure key={v.src} className="lux-card px-4 py-5">
-                          <div className="relative mx-auto aspect-[4/3] w-full">
-                            <Image
-                              src={v.src}
-                              alt={`${p.name} — ${v.caption}`}
-                              fill
-                              sizes="(max-width: 1024px) 40vw, 18vw"
-                              className="object-contain"
-                            />
-                          </div>
-                          <figcaption className="mt-3 text-center text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
-                            {v.caption}
-                          </figcaption>
-                        </figure>
-                      ))}
-                    </div>
-                  )}
                 </Reveal>
               </div>
             </section>
@@ -203,7 +206,7 @@ export default function ProductsPage() {
             <Reveal stagger className="grid grid-cols-2 gap-4 sm:grid-cols-3">
               {waterUseCases.map((u) => (
                 <figure key={u.label} className="group">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line">
+                  <div className="relative aspect-square overflow-hidden rounded-xl border border-line">
                     <Image
                       src={u.image}
                       alt={u.label}

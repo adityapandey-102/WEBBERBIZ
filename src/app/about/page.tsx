@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const stats = [
   { value: 7, label: "Years of research", note: "continuous development strategy" },
   { value: 20, label: "Years proving", note: "field record in India" },
-  { value: 5, label: "Products in range", note: "metal, concrete, water, glass" },
+  { value: 5, label: "Products in range", note: "plus COOL G for glass, coming soon" },
   { value: 5, label: "GCC markets", note: "UAE · KSA · QA · OM · BH" },
 ];
 
@@ -62,13 +62,13 @@ export default function AboutPage() {
           <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { src: "/img/bg/research-lab.webp", cap: "Formulation and testing" },
-              { src: "/img/bg/brush-coating.webp", cap: "Application trials" },
+              { src: "/img/bg/paint-cans.webp", cap: "Application trials" },
               { src: "/img/bg/concrete-crack.webp", cap: "Substrate failure study" },
               { src: "/img/bg/india-gate-smog.webp", cap: "The emissions problem we work against" },
             ].map((im) => (
               <Reveal key={im.src}>
                 <figure className="group">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+                  <div className="relative aspect-[3/2] overflow-hidden rounded-2xl border border-line">
                     <Image
                       src={im.src}
                       alt={im.cap}
@@ -101,7 +101,7 @@ export default function AboutPage() {
           <div className="mt-20 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
             <div className="space-y-6">
               <Reveal className="overflow-hidden rounded-2xl border border-line">
-                <div className="relative aspect-[16/10]">
+                <div className="relative aspect-[16/9]">
                   <Image
                     src="/img/bg/co2-dashboard.webp"
                     alt="Carbon dioxide monitoring dashboard"
@@ -112,7 +112,7 @@ export default function AboutPage() {
                 </div>
               </Reveal>
               <Reveal className="overflow-hidden rounded-2xl border border-line">
-                <div className="relative aspect-[16/10]">
+                <div className="relative aspect-[16/9]">
                   <Image
                     src="/img/bg/decarbonized.webp"
                     alt="Decarbonised"
@@ -171,9 +171,9 @@ export default function AboutPage() {
         <div className="mx-auto w-full max-w-[1280px]">
           <SectionHead
             eyebrow="The range at a glance"
-            line1="Five formulations."
+            line1="Five products in the range."
             line2="One system."
-            body="Each product is selective by design: built for a single substrate and a single failure mode, rather than sold as a universal coating."
+            body="Each product is selective by design: built for a single substrate and a single failure mode, rather than sold as a universal coating. COOL G, a thermal coating for glass, is marked coming soon in the catalogue."
           />
 
           <Reveal stagger as="ul" className="mt-20">

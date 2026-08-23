@@ -28,7 +28,7 @@ export default function Process() {
         />
 
         <Reveal className="mt-16 overflow-hidden rounded-2xl border border-line">
-          <div className="relative aspect-[21/9]">
+          <div className="relative aspect-[16/9]">
             <Image
               src="/img/work/roller-closeup.webp"
               alt="Applying the coating with a roller"

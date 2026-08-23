@@ -41,7 +41,7 @@ export default function HomePage() {
             eyebrow="Client voices"
             line1="Validated by the"
             line2="people who live under it."
-            body="Two homes, twenty-four years apart in age, with the same two complaints: heat inside, and leakage through the cracks."
+            body="The catalogue carries one letter, signed by two people, about a twenty-four-year-old house with the same two complaints we hear most: heat inside, and leakage through the cracks."
           />
           <div className="mt-16">
             <Testimonials />

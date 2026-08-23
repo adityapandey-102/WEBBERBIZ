@@ -20,7 +20,7 @@ export default function ProjectsPage() {
         line1="Every roof handed over"
         line2="with a number on it."
         lede="Proof of concept work, industrial sheds, schools, madrasas and homes — each with the surface and ambient readings recorded against the baseline before coating."
-        image="/img/projects/roof-white-app.webp"
+        image="/img/projects/solar-after.webp"
       />
 
       <div className="px-5 sm:px-8 lg:px-12">
@@ -66,7 +66,7 @@ export default function ProjectsPage() {
                 <Reveal stagger className="grid grid-cols-2 gap-4">
                   {p.images.map((img) => (
                     <figure key={img.src} className="group">
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line">
+                      <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-line">
                         <Image
                           src={img.src}
                           alt={img.caption}
@@ -94,7 +94,7 @@ export default function ProjectsPage() {
             eyebrow="Client voices"
             line1="Validated by the"
             line2="people who live under it."
-            body="Two homes, twenty-four years apart in age, with the same two complaints: heat inside, and leakage through the cracks."
+            body="The catalogue carries one letter, signed by two people, about a twenty-four-year-old house with the same two complaints we hear most: heat inside, and leakage through the cracks."
           />
           <div className="mt-16">
             <Testimonials />

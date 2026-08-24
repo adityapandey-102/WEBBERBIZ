@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost, JetBrains_Mono } from "next/font/google";
+import { Cormorant_Garamond, Jost, JetBrains_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
@@ -18,6 +18,14 @@ const cormorant = Cormorant_Garamond({
 const jost = Jost({
   variable: "--font-jost",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Heavy geometric sans for the product showcase display word.
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["700", "800"],
   display: "swap",
 });
 
@@ -46,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${jost.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${jost.variable} ${poppins.variable} ${jetbrains.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-bg text-body">
         <SurveyProvider>

@@ -174,3 +174,39 @@ They are kept in `public/img/` in case they are wanted back:
 The left-hand fade on each card's photograph is a **CSS mask on the image itself**, not an
 overlay gradient — an overlay left a visible seam where the two met. At rest the image is
 greyscale at 25%; on hover it comes up to full colour at 80%, matching the inspiration.
+
+## Product showcase (`/products` hero)
+
+Modelled on a reference motion study, rebuilt in the site's own palette.
+
+**Typography.** The display word uses **Poppins ExtraBold with 0.05em tracking**, matching
+the reference's heavy geometric letterforms (read off frames extracted from the source
+video). It is sized by **measuring the rendered word**, not by estimating per-character
+width — Poppins is wider than a coefficient predicts and the word changes length every
+slide. The measurement re-runs on `fonts.ready` and on resize, and targets 90% of the
+viewport, so a ten-letter word fits a phone and a five-letter word fills a desktop.
+
+**The word is the substrate, not the pack name** — three products are all called HEAT PLUG,
+so the headline would have sat unchanged across three slides. Containers / Metal / Concrete
+/ Water / Surface / Glass, each from the catalogue's own category line. The product name is
+carried by its **brand wordmark image** (`brand/wordmark-*.png`) rather than set as text.
+
+**Motion — a blur cross-dissolve, not a rotation.** Frame analysis of the reference video
+(33fps, frames 126–135) shows the bottle never turns: it holds position and size while the
+outgoing and incoming packs smear horizontally through each other for about 100ms, settling
+by ~270ms. An earlier attempt rotated the flat pack shot on `rotationY`, which reads as a
+turning sheet of paper rather than a turning tin — a real turn would need a rendered
+turntable frame sequence, not a single flat PNG.
+
+- Outgoing pack and letters blur out and slide against the travel direction; incoming ones
+  blur in and slide with it, overlapping by ~100ms. Both slides stay mounted through the
+  swap so they genuinely dissolve through one another.
+- Orbiting objects fly in directionally; a grounding shadow stretches out beneath the pack.
+- At rest every object drifts and rotates on its own clock, and follows the cursor with
+  depth-weighted parallax — nearer objects travel further.
+
+**Layout.** The pack sits *in flow between the two arrows*, with the word absolutely centred
+behind it, so nothing can overlap by construction. Below `sm` the arrows move to the bottom
+row beside the dots — flanking them would land them on the word's first and last letters.
+
+Autoplay pauses on hover and on touch; `prefers-reduced-motion` disables all of it.

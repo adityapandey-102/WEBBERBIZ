@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import PageHero from "@/components/PageHero";
+import ProductShowcase from "@/components/ProductShowcase";
 import Marquee from "@/components/Marquee";
 import { Pill, SectionHead } from "@/components/ui";
 import { LineReveal, Reveal } from "@/components/motion";
@@ -21,13 +21,7 @@ export const metadata: Metadata = {
 export default function ProductsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Product range"
-        line1="Selective, and highly"
-        line2="specialised."
-        lede="Five specialised products for the UAE and GCC — thermal coating for metal containers, for all metal surfaces, for cemented surfaces, waterproofing, and surface preparation — with COOL G for glass coming soon."
-        image="/img/bg/brush-coating.webp"
-      />
+      <ProductShowcase />
 
       <div className="px-5 sm:px-8 lg:px-12">
         <div className="mx-auto w-full max-w-[1280px]">

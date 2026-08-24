@@ -25,6 +25,7 @@
   --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-jost), "Jost", system-ui, sans-serif;
   --font-mono: var(--font-mono-jb), ui-monospace, monospace;
+  --font-heavy: var(--font-poppins), "Poppins", system-ui, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }

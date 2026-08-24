@@ -25,7 +25,7 @@ const jost = Jost({
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { thermalReadings } from "@/lib/data";
 
@@ -18,8 +19,20 @@ export default function ThermalChart() {
   const [hover, setHover] = useState<number | null>(null);
 
   return (
-    <figure className="overflow-hidden rounded-2xl border border-line bg-bg">
-      <figcaption className="flex flex-col gap-5 border-b border-line px-7 py-7 sm:flex-row sm:items-end sm:justify-between sm:px-9">
+    <figure className="relative overflow-hidden rounded-2xl border border-line bg-bg">
+      {/* Field photograph behind the plot — held back so the data stays dominant */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <Image
+          src="/img/proof/fluke-compare.webp"
+          alt=""
+          fill
+          sizes="(max-width: 1024px) 100vw, 1100px"
+          className="object-cover object-center opacity-[0.09]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/86 to-bg/70" />
+      </div>
+
+      <figcaption className="relative flex flex-col gap-5 border-b border-line px-7 py-7 sm:flex-row sm:items-end sm:justify-between sm:px-9">
         <div>
           <h3 className="font-display text-[1.6rem] font-normal leading-tight text-ink">
             Surface temperature, coated against uncoated
@@ -49,7 +62,7 @@ export default function ThermalChart() {
         </div>
       </figcaption>
 
-      <div className="px-7 pb-3 pt-9 sm:px-9">
+      <div className="relative px-7 pb-3 pt-9 sm:px-9">
         {thermalReadings.map((r, i) => {
           const delta = +(r.uncoated - r.coated).toFixed(1);
           const active = hover === i;
@@ -127,7 +140,7 @@ export default function ThermalChart() {
       </div>
 
       {/* Axis */}
-      <div className="border-t border-line px-7 py-4 sm:px-9">
+      <div className="relative border-t border-line px-7 py-4 sm:px-9">
         <div className="relative h-4">
           {TICKS.map((t) => (
             <span

@@ -179,7 +179,7 @@ greyscale at 25%; on hover it comes up to full colour at 80%, matching the inspi
 
 Modelled on a reference motion study, rebuilt in the site's own palette.
 
-**Typography.** The display word uses **Poppins ExtraBold with 0.05em tracking**, matching
+**Typography.** The display word uses **Poppins Bold with 0.12em tracking** — lighter and more spread than the first pass, matching
 the reference's heavy geometric letterforms (read off frames extracted from the source
 video). It is sized by **measuring the rendered word**, not by estimating per-character
 width — Poppins is wider than a coefficient predicts and the word changes length every
@@ -210,3 +210,66 @@ behind it, so nothing can overlap by construction. Below `sm` the arrows move to
 row beside the dots — flanking them would land them on the word's first and last letters.
 
 Autoplay pauses on hover and on touch; `prefers-reduced-motion` disables all of it.
+
+### Word colour, sampled from the pack
+
+Each slide's display word takes a colour **derived from its own pack artwork**, not picked
+by hand. A script bins every opaque, saturated, mid-tone pixel of the pack shot by hue,
+takes the most populous bin as the dominant colour, then holds that hue while darkening it
+and pulling saturation back — same family as the product, deliberately not the same colour.
+
+A plain mean was tried first and failed: SURFAKLEAN's red and blue bands averaged into
+purple. The hue histogram avoids that.
+
+| Product | Pack dominant | Word |
+|---|---|---|
+| HEAT PLUG — containers | `#b6b47c` khaki | `#5c5b2d` olive |
+| HEAT PLUG — all metal | `#4a7adc` blue | `#223967` deep blue |
+| HEAT PLUG — concrete | `#d6a2a3` pink | `#5f2a2c` maroon |
+| AQUAPLUG | `#a3cdce` teal | `#2d5b5c` deep teal |
+| SURFAKLEAN | `#5285d3` blue | `#223d67` deep blue |
+| COOL G | `#cabe57` green-gold | `#676022` olive gold |
+
+The bloom behind the pack and the active progress bar both pick up the same colour.
+
+### The breathing bug
+
+The idle drift ran on load and then stopped for every subsequent product. Cause: the
+floating objects were keyed `` `${product.slug}-${i}` ``, so React **unmounted and remounted
+them on every slide change**, orphaning the infinite tweens that had been attached to the
+old nodes.
+
+Fixed by giving the positioned wrapper a **stable key** (`i`) and keying only the inner
+image, so the animated node survives the swap. Verified by sampling the computed transform
+on slides 1, 3 and 6 — all still moving. The pack's own hover float uses the same pattern.
+
+## Home page sections added
+
+| Section | Notes |
+|---|---|
+| `ImpactDiagram` | **Catalogue slide 15** rebuilt live — the four-quadrant diamond, the central "IMPACT of HIGH Temperature" hub, the four corner text blocks and their photographs, all with the deck's own wording. The deck's amber/orange/cyan/blue becomes four colours from this site's palette. Quadrants assemble out of the centre on scroll, the hub ring breathes, and hovering a quadrant dims the other three. |
+| `Reviews` | Laid out to the supplied reference: centred header, star row, italic quote, avatar, name and role, dot pagination. **Only the active review is mounted** — crossfading two blocks of prose left them legibly overlapping. |
+| `ProductShowcase` | Now also the home product section, replacing the scrolling range row. |
+
+The home page's old "Client voices" block was removed — `Reviews` opens with the same
+catalogue letter, so the two were showing the same quote twice. The full letter with both
+signatories still runs on `/projects`.
+
+### Reviews content
+
+`reviews[0]` is the real catalogue letter (p41). **`reviews[1]` and `[2]` are placeholders**,
+marked `TODO` in `src/lib/data.ts` with `source: "Placeholder"` — replace before launch.
+
+## Other changes
+
+- **`ThermalChart`** carries a field photograph behind the plot at 9% with a left-to-right
+  wash, so the data stays dominant and nothing is cropped or distorted.
+- **`Lenses`** is now a slide: one lens open at a time with an oversized numeral bled off
+  the corner, a rail of the other three, and a progress bar. Auto-advances, holds on hover.
+- **`Applications`** drops the two written lists. The models now open a **dialogue on hover**
+  carrying that surface's measured figures; on touch the row scrolls horizontally and a tap
+  opens the same panel.
+- **`VideoHero`** backs the `/technology` hero with video instead of a still. The clip sits
+  in a rounded plate with a hairline frame and **no scrim over the footage**, so it stays
+  sharp rather than washed out. Muted + `playsInline` for autoplay policy;
+  `prefers-reduced-motion` pauses it.

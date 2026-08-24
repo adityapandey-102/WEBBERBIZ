@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import PageHero from "@/components/PageHero";
+import VideoHero from "@/components/VideoHero";
 import PrincipleDiagram from "@/components/PrincipleDiagram";
 import ThermalChart from "@/components/ThermalChart";
 import { SectionHead } from "@/components/ui";
@@ -26,12 +26,12 @@ export default function TechnologyPage() {
 
   return (
     <>
-      <PageHero
+      <VideoHero
         eyebrow="Nanotechnology"
         line1="All products are"
         line2="nanotechnology based."
         lede="A nanometer is one-billionth of a meter. At that scale a ceramic composite forms a continuous film that reflects first and insulates what remains — keeping the temperature away from the substrate."
-        image="/img/bg/nano-spheres.webp"
+        src="/video/tech-hero.mp4"
       />
 
       {/* The scale */}

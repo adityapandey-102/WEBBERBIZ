@@ -733,3 +733,37 @@ export const method = [
   "Surface temperature is taken with a thermal gun after the first coat and again after the second, so the contribution of each layer is visible.",
   "Inside ambient is logged separately from surface temperature, because the figure that matters to a building is the one under the roof.",
 ];
+
+/**
+ * Reviews. The catalogue carries only the single joint letter on p41 (see
+ * `testimonial`), which is reproduced verbatim as the first entry. The rest are
+ * PLACEHOLDERS — replace with real client feedback before launch.
+ */
+export const reviews = [
+  {
+    quote:
+      "There is no heat inside the house — it is fantastic, I can sleep peacefully, and I can walk on the terrace barefoot in the afternoon, it is so cool. The dampness and leakage also stopped, which I observed during heavy rains.",
+    name: "Mrs. Jagadamba",
+    role: "Retd. Section Chief — BSNL",
+    stars: 5,
+    source: "From the catalogue, p41",
+  },
+  // TODO — placeholder, replace with a real review before launch.
+  {
+    quote:
+      "The sheds used to be unusable by midday. After the coating the roof reads more than twenty degrees lower and the floor staff notice it immediately.",
+    name: "Facilities Manager",
+    role: "Industrial park, Dubai",
+    stars: 5,
+    source: "Placeholder",
+  },
+  // TODO — placeholder, replace with a real review before launch.
+  {
+    quote:
+      "We were quoted a full roof replacement. The survey came back with a coating specification instead, and the leak stopped inside a day.",
+    name: "Building Owner",
+    role: "Residential tower, Deira",
+    stars: 5,
+    source: "Placeholder",
+  },
+];

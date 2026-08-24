@@ -9,6 +9,7 @@ import Process from "@/components/home/Process";
 import Terminal from "@/components/home/Terminal";
 import WhyGCC from "@/components/home/WhyGCC";
 import Lenses from "@/components/home/Lenses";
+import Principles from "@/components/home/Principles";
 import Applications from "@/components/home/Applications";
 import ProjectsPreview from "@/components/home/ProjectsPreview";
 import CTA from "@/components/home/CTA";
@@ -22,7 +23,7 @@ export default function HomePage() {
     <>
       <Hero />
       <Marquee words={marqueeWords} />
-      <Thinking />
+      {/* <Thinking /> */}
       <Philosophy />
       <Statement />
       <Range />
@@ -31,6 +32,7 @@ export default function HomePage() {
       <Terminal />
       <WhyGCC />
       <Lenses />
+      <Principles />
       <Applications />
       <ProjectsPreview />
 

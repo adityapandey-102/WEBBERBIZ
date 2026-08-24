@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap, initGsap, prefersReducedMotion } from "@/lib/gsap";
-import { heroMetrics } from "@/lib/data";
 import { Arrow } from "../ui";
+import { SurveyButton } from "../SurveyModal";
 
 /**
  * Full-bleed background photograph behind the type, with a light scrim so the
@@ -38,12 +38,6 @@ export default function Hero() {
         )
         .fromTo("[data-h-sub]", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1 }, 0.7)
         .fromTo("[data-h-cta]", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1 }, 0.85)
-        .fromTo(
-          "[data-h-metrics]",
-          { opacity: 0, y: 22 },
-          { opacity: 1, y: 0, duration: 1 },
-          1.0,
-        )
         .fromTo(
           bg.current,
           { scale: 1.14, opacity: 0 },
@@ -126,34 +120,11 @@ export default function Hero() {
                 See the Range
                 <Arrow />
               </Link>
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2.5 rounded-full border border-ink/20 bg-bg/80 px-7 py-3.5 text-[13.5px] font-semibold text-ink-strong backdrop-blur-sm transition-all duration-500 hover:border-ink/45 hover:bg-bg"
-              >
+              <SurveyButton className="inline-flex items-center gap-2.5 rounded-full border border-ink/20 bg-bg/80 px-7 py-3.5 text-[13.5px] font-semibold text-ink-strong backdrop-blur-sm transition-all duration-500 hover:border-ink/45 hover:bg-bg">
                 Request a Survey
-                <Arrow />
-              </Link>
+              </SurveyButton>
             </div>
 
-            {/* Metric row — hairline separators, no heavy card */}
-            <div
-              data-h-metrics
-              className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-y-8 opacity-0 sm:grid-cols-3 lg:grid-cols-5"
-            >
-              {heroMetrics.map((m, i) => (
-                <div
-                  key={m.label}
-                  className={`px-3 ${i > 0 ? "lg:border-l lg:border-ink/12" : ""}`}
-                >
-                  <div className="font-display text-[1.65rem] leading-none text-ink">
-                    {m.display}
-                  </div>
-                  <div className="mt-2.5 text-[9.5px] font-medium uppercase tracking-[0.18em] text-muted">
-                    {m.label}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>

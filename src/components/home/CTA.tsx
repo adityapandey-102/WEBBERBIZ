@@ -1,5 +1,6 @@
 import { company } from "@/lib/data";
 import { Pill } from "../ui";
+import { SurveyButton } from "../SurveyModal";
 import { LineReveal, Reveal } from "../motion";
 
 export default function CTA() {
@@ -22,7 +23,9 @@ export default function CTA() {
 
         <Reveal delay={0.08}>
           <div className="mt-11 flex flex-wrap items-center justify-center gap-3">
-            <Pill href="/contact">Request a Survey</Pill>
+            <SurveyButton className="inline-flex items-center gap-2.5 rounded-full bg-black px-7 py-3.5 text-[13.5px] font-semibold tracking-[0.02em] text-white transition-all duration-500 ease-out-expo hover:bg-ink">
+              Request a Survey
+            </SurveyButton>
             <Pill href="/technology" variant="outline">
               How the coating works
             </Pill>

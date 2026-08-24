@@ -9,7 +9,8 @@ const field =
   "w-full rounded-lg border border-line bg-bg px-4 py-3 text-[15px] text-ink outline-none transition-colors duration-300 placeholder:text-faint focus:border-ink";
 const label = "block font-mono text-[10.5px] uppercase tracking-[0.16em] text-faint";
 
-export default function ContactForm() {
+/** `bare` drops the card chrome so the form can sit inside the survey modal. */
+export default function ContactForm({ bare = false }: { bare?: boolean }) {
   const [sent, setSent] = useState(false);
 
   // No backend is wired up yet — this validates and shows the confirmation state.
@@ -54,7 +55,10 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-line bg-surface px-6 py-8 sm:px-9 sm:py-10">
+    <form
+      onSubmit={onSubmit}
+      className={bare ? "" : "rounded-2xl border border-line bg-surface px-6 py-8 sm:px-9 sm:py-10"}
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <label className={label} htmlFor="name">

@@ -21,11 +21,10 @@ export const company = {
 };
 
 export const nav = [
-  { label: "Home", href: "/" },
+  { label: "About us", href: "/about" },
   { label: "Products", href: "/products" },
   { label: "Technology", href: "/technology" },
   { label: "Projects", href: "/projects" },
-  { label: "Firm", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -633,7 +632,7 @@ export const philosophy = [
     kicker: "Evidence",
     title: "Measured, not claimed",
     body: "Surface and ambient temperatures are logged before the first coat and after the second. The delta handed over is an instrument reading.",
-    image: "/img/proof/fluke-40.webp",
+    image: "/img/proof/meter-readings.webp",
     span: "narrow" as const,
   },
   {
@@ -647,7 +646,7 @@ export const philosophy = [
     kicker: "Stewardship",
     title: "Decarbonising, continually",
     body: "Lower roof temperature is lower air-conditioning load, which is lower cost and lower carbon. The saving compounds every year the coating stays on.",
-    image: "/img/bg/co2-sustainability.webp",
+    image: "/img/bg/co2-dashboard.webp",
     span: "wide" as const,
   },
 ];

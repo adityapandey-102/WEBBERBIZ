@@ -80,7 +80,7 @@ export default function Hero() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(250,250,249,0.9) 0%, rgba(250,250,249,0.62) 34%, rgba(250,250,249,0.34) 62%, rgba(250,250,249,0.82) 90%, var(--color-bg) 100%)",
+                "linear-gradient(to bottom, rgba(250,248,246,0.9) 0%, rgba(250,248,246,0.62) 34%, rgba(250,248,246,0.34) 62%, rgba(250,248,246,0.82) 90%, var(--color-bg) 100%)",
             }}
           />
         </div>
@@ -115,7 +115,7 @@ export default function Hero() {
             >
               <Link
                 href="/products"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-black px-7 py-3.5 text-[13.5px] font-semibold text-white transition-colors duration-500 hover:bg-ink"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-accent-soft px-7 py-3.5 text-[13.5px] font-semibold text-white transition-colors duration-500 hover:bg-ink"
               >
                 See the Range
                 <Arrow />

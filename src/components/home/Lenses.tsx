@@ -147,7 +147,7 @@ export default function Lenses() {
                   aria-current={i === active}
                   className={`flex h-full w-[220px] items-baseline gap-4 rounded-2xl border px-6 py-5 text-left transition-all duration-500 ease-out-expo lg:w-full ${
                     i === active
-                      ? "border-ink/25 bg-bg shadow-[0_16px_44px_-22px_rgba(15,26,19,0.4)]"
+                      ? "border-ink/25 bg-bg shadow-[0_16px_44px_-22px_rgba(35,26,20,0.4)]"
                       : "border-line bg-transparent hover:border-ink/20 hover:bg-bg"
                   }`}
                 >

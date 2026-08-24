@@ -90,7 +90,7 @@ function ModelCard({ m }: { m: (typeof models)[number] }) {
       <div
         role="tooltip"
         aria-hidden={!open}
-        className={`pointer-events-none absolute bottom-[calc(100%+12px)] left-1/2 z-40 w-[260px] -translate-x-1/2 rounded-xl border border-line bg-bg p-4 text-left shadow-[0_24px_60px_-18px_rgba(15,26,19,0.3)] transition-all duration-400 ease-out-expo ${
+        className={`pointer-events-none absolute bottom-[calc(100%+12px)] left-1/2 z-40 w-[260px] -translate-x-1/2 rounded-xl border border-line bg-bg p-4 text-left shadow-[0_24px_60px_-18px_rgba(35,26,20,0.3)] transition-all duration-400 ease-out-expo ${
           open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
         }`}
       >

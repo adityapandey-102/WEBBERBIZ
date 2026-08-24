@@ -32,7 +32,7 @@ export function Pill({
 }) {
   const styles =
     variant === "solid"
-      ? "bg-black text-white hover:bg-ink"
+      ? "bg-accent-soft text-white hover:bg-ink"
       : "border border-line bg-bg text-ink-strong hover:border-ink/40 hover:bg-surface";
   return (
     <Link

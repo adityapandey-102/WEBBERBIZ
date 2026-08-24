@@ -23,18 +23,20 @@ Matched to the inspiration after inspecting its live computed styles:
 
 | Token | Value | Use |
 |---|---|---|
-| `--color-bg` | `#fafaf9` | warm off-white ground |
-| `--color-ink` | `#2f4f4d` | deep teal — display headings |
-| `--color-ink-strong` | `#17201f` | near-black — sans headings |
-| `--color-black` | `#0a0a0a` | primary pill buttons |
+| `--color-bg` | `#faf8f6` | warm off-white ground |
+| `--color-ink` | `#2a1f18` | warm near-black — display headings (15.16:1 on bg) |
+| `--color-ink-accent` | `#b8460f` | burnt orange — eyebrows and selective emphasis (5.06:1) |
+| `--color-ink-strong` | `#231a14` | warm near-black — sans headings |
+| `--color-accent` | `#f26522` | brand orange — decorative marks only |
+| `--color-accent-soft` | `#c74e14` | text-bearing fills (4.64:1 with white) |
 | `--font-display` | Cormorant Garamond | headings, numerals, stats |
 | `--font-sans` | Jost | body, nav, labels |
 
-The signature heading is two lines: **roman teal over grey serif italic** (`SectionHead`).
+The signature heading is two lines: **roman near-black over warm-grey serif italic** (`SectionHead`).
 
 ## Data visualisation
 
-Charts use a palette validated against the `#fafaf9` surface (lightness band, chroma
+Charts use a palette validated against the `#faf8f6` surface (lightness band, chroma
 floor, CVD separation, contrast — all pass):
 
 - `--color-data-hot` `#d2691e` — uncoated
@@ -319,3 +321,105 @@ max 35), i.e. flat — the mark is not recoverable from the rendered frame.
 Note this covers, and does not remove, the provider's visible mark; check that against the
 generator's terms for commercial use, and be aware invisible watermarking (e.g. SynthID) may
 persist in the file regardless.
+
+## Orange theme (replaces the teal/green palette)
+
+The brand orange was sampled from the supplied logo set (`public/Assests/Asset 33@4x (1).png`):
+**`#F26522`**. White on that orange measures **3.15:1** — it fails AA — so it is used only for
+decorative marks, and a darkened `--color-accent-soft` `#c74e14` (**4.64:1** with white) carries
+every text-bearing fill. `bg-black` was swept to `bg-accent-soft` across 42 files.
+
+Headings moved to `--color-ink` `#8f3a11` (**7.13:1** on the ground). The header lockup is now
+`/img/brand/webberbiz-lockup.png`.
+
+`.display-italic` — the quieter second line of every `SectionHead` — was on `--color-faint`
+`#a9a099`, which measures **2.42:1** and fails even the 3:1 large-text threshold. It now carries
+its own `#8f8479` (**3.45:1** on bg, **3.24:1** on surface), which passes while keeping the faded
+look. `--color-faint` itself is unchanged and still used for small decorative labels; those sit
+below 4.5:1 and are worth a separate pass if strict AA is required.
+
+## Flyer modal (`FlyerModal.tsx`)
+
+Each product on `/products` carries a flyer button. `FlyerProvider` wraps the page; the modal is
+a two-column panel — the flyer image in a scrolling column, share tools beside it:
+
+- **Caption** — per-product share text built from the catalogue's own figures (e.g. HEAT PLUG
+  quotes the 70.7 °C → 46.3 °C container roof and 46.1 °C → 30.8 °C ceiling), with copy-to-clipboard.
+- **Share** — WhatsApp, LinkedIn, X, Facebook, Telegram, Email, each with a prebuilt href;
+  `navigator.share` is used instead where the device supports it.
+- **Download** — full-resolution `public/flyers/{slug}-full.png`.
+
+## Scroll locking
+
+Lenis owns the scroll position, so `overflow: hidden` on the document does **not** stop the page
+— Lenis keeps translating it. That was why the survey modal scrolled its backdrop. `SmoothScroll`
+now exports `lockScroll()` / `unlockScroll()`, which call `lenis.stop()` / `.start()` behind a
+reference count so nested modals cannot unlock each other. A route change resets the count.
+
+Verified in-browser: with the modal open `scrollY` holds at 3196 through a 1200px wheel; after
+Escape the next wheel moves it to 4093.
+
+## Survey auto-open
+
+`SurveyAutoOpen` raises the survey once, after `afterScreens` (default 3.5) viewport heights of
+scroll on the home page. Guarded by `sessionStorage` so it never nags, skipped under
+`prefers-reduced-motion`, and skipped entirely in private mode rather than firing on every scroll.
+
+## Technology hero
+
+`VideoHero` was rebuilt to mirror the home hero exactly rather than sitting in a framed box: a
+190vh scroll track with a sticky stage, the footage full-bleed behind the type, a warm scrim so
+the burnt-orange display face keeps contrast, the same masked line-by-line reveal, and the same
+scrubbed push-in (`scale 1.16`) with the copy lifting away (`yPercent: -28`).
+
+## Impact diagram animation
+
+`ImpactDiagram` scroll choreography, on a 1500px perspective:
+
+- each diamond quadrant swings in **from the corner it will occupy** (per-quadrant `rotate`/`x`/`y`
+  driven by index) on `back.out(1.6)`, rather than four wedges scaling up together;
+- the hub rotates in, then its words stagger up;
+- the four corner text blocks tilt out of depth (`rotateX: 10`, `z: -120`, `blur(8px)` → 0);
+- the whole diamond counter-rotates −5° → 5° across the section, scrubbed;
+- each corner block drifts at its own rate for a quiet parallax;
+- the hub ring keeps breathing so the diagram never freezes.
+
+Reduced motion drops all of it to a static, fully-visible diagram.
+
+## Rebalancing the orange (60 / 30 / 10)
+
+The first orange pass put `--color-ink` at burnt orange `#8f3a11`, which drives `.display` and
+85 `text-ink` usages — so **every heading on every page was orange**. That is what made the site
+read as orange-washed rather than orange-accented.
+
+Now:
+
+- **60 — neutral.** Warm off-white grounds and surfaces, unchanged.
+- **30 — orange, concentrated.** Section eyebrows (`--color-ink-accent` `#b8460f`, 5.06:1) and
+  their brand-orange dots, the nine primary CTAs (`--color-accent-soft`, 4.64:1 with white), the
+  chart hot series, and the product wordmarks. Orange recurs on a rhythm instead of being smeared
+  across the type.
+- **10 — black.** `--color-ink` `#2a1f18` for display headings (15.16:1), the active nav pill,
+  `::selection`, and button hover states.
+
+## Technology hero on black
+
+The hero scrim was a warm-white wash; it is now a dark one (`#120c08/55` plus a black gradient
+whose last stop resolves to `--color-bg`, so the hero still hands off to the section below with
+no seam). The footage reads as lit particles on black.
+
+Type inverts with it via `.display.on-dark` / `.eyebrow.on-dark` — two-class selectors, so they
+win over the base colours regardless of sheet order — and the secondary CTA becomes a light
+outline.
+
+The header had to follow. While it is transparent over that hero it swaps to
+`webberbiz-lockup-white.png` and gives the pill nav a dark treatment; the light nav labels on the
+translucent light pill measured **2.74:1**, below the 4.5:1 floor for 13.5px text. On the dark
+pill they measure **13.87:1**. Past 40px of scroll the bar goes solid and both revert.
+
+## Flyer sizing
+
+The flyer sat in a scrolling column, so only its top third was visible. It is now letterboxed
+(`object-contain`, `max-h-[58svh]`, `lg:max-h-[74svh]`) so the whole sheet — headline, product
+shots, application strip and the contact footer — is readable without scrolling. Only the share
+panel beside it scrolls.

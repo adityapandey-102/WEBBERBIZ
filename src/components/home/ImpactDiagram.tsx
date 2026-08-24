@@ -101,33 +101,92 @@ export default function ImpactDiagram() {
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: el, start: "top 70%", once: true },
+        scrollTrigger: { trigger: el, start: "top 72%", once: true },
       });
 
-      // the diamond assembles, quadrant by quadrant, out of the centre
+      // Each quadrant swings in from the corner it will occupy, rather than all
+      // four scaling up together.
       tl.fromTo(
         "[data-q]",
-        { opacity: 0, scale: 0.35, transformOrigin: "center center" },
-        { opacity: 1, scale: 1, duration: 1.05, ease: "back.out(1.5)", stagger: 0.11 },
+        {
+          opacity: 0,
+          scale: 0.32,
+          rotate: (i: number) => [-24, 24, -24, 24][i % 4],
+          x: (i: number) => [-70, 70, -70, 70][i % 4],
+          y: (i: number) => [-70, -70, 70, 70][i % 4],
+          transformOrigin: "center center",
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          rotate: 0,
+          x: 0,
+          y: 0,
+          duration: 1.25,
+          ease: "back.out(1.6)",
+          stagger: 0.12,
+        },
         0,
       );
+
       tl.fromTo(
         "[data-hub]",
-        { opacity: 0, scale: 0.5 },
-        { opacity: 1, scale: 1, duration: 0.9, ease: "back.out(1.8)" },
-        0.35,
+        { opacity: 0, scale: 0.45, rotate: -12 },
+        { opacity: 1, scale: 1, rotate: 0, duration: 1, ease: "back.out(2)" },
+        0.42,
       );
       tl.fromTo(
-        "[data-block]",
-        { opacity: 0, y: 26 },
-        { opacity: 1, y: 0, duration: 0.85, ease: "power3.out", stagger: 0.09 },
-        0.5,
+        "[data-hub-word]",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.07 },
+        0.74,
       );
 
-      // the hub breathes, so the diagram never feels frozen
+      // Corner blocks arrive as planes tilting out of depth.
+      tl.fromTo(
+        "[data-block]",
+        { opacity: 0, y: 40, rotateX: 10, z: -120, filter: "blur(8px)" },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          z: 0,
+          filter: "blur(0px)",
+          duration: 1.05,
+          ease: "power3.out",
+          stagger: 0.1,
+        },
+        0.55,
+      );
+
+      // Slow counter-rotation of the whole diamond as the section passes.
+      gsap.fromTo(
+        "[data-diamond]",
+        { rotate: -5 },
+        {
+          rotate: 5,
+          ease: "none",
+          scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 1.1 },
+        },
+      );
+
+      // Corner blocks drift at slightly different rates — a quiet parallax.
+      gsap.utils.toArray<HTMLElement>("[data-block]").forEach((node, i) => {
+        gsap.fromTo(
+          node,
+          { yPercent: 4 + i * 1.4 },
+          {
+            yPercent: -(4 + i * 1.4),
+            ease: "none",
+            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 1.3 },
+          },
+        );
+      });
+
+      // The hub keeps breathing so the diagram never freezes.
       gsap.to("[data-hub-ring]", {
-        scale: 1.09,
-        opacity: 0.25,
+        scale: 1.1,
+        opacity: 0.22,
         duration: 2.6,
         ease: "sine.inOut",
         repeat: -1,
@@ -151,7 +210,7 @@ export default function ImpactDiagram() {
         />
 
         {/* Diagram: three columns on desktop — text, diamond, text */}
-        <div className="mt-20 grid items-center gap-10 lg:grid-cols-[1fr_auto_1fr] lg:gap-8">
+        <div className="mt-20 grid items-center gap-10 lg:grid-cols-[1fr_auto_1fr] lg:gap-8" style={{ perspective: 1500 }}>
           {/* text blocks, ordered so mobile reads 1→4 */}
           {QUADRANTS.map((q) => (
             <article
@@ -212,7 +271,7 @@ export default function ImpactDiagram() {
 
           {/* the diamond itself */}
           <div className="order-first mx-auto lg:order-none lg:col-start-2 lg:row-span-2">
-            <div className="relative aspect-square w-[min(430px,80vw)]">
+            <div data-diamond className="relative aspect-square w-[min(430px,80vw)]">
               <div className="absolute inset-[9%] rotate-45">
                 <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-1.5">
                   {/* order here follows the visual quadrants, not reading order */}
@@ -253,18 +312,18 @@ export default function ImpactDiagram() {
               {/* hub */}
               <div
                 data-hub
-                className="pointer-events-none absolute left-1/2 top-1/2 flex h-[46%] w-[46%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-bg text-center shadow-[0_20px_60px_-18px_rgba(15,26,19,0.28)]"
+                className="pointer-events-none absolute left-1/2 top-1/2 flex h-[46%] w-[46%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-bg text-center shadow-[0_20px_60px_-18px_rgba(35,26,20,0.28)]"
               >
                 <span
                   data-hub-ring
                   aria-hidden
                   className="absolute inset-0 rounded-full border border-ink/12"
                 />
-                <span className="font-display text-[clamp(1.1rem,3vw,1.7rem)] font-semibold leading-none tracking-tight text-ink">
+                <span data-hub-word className="font-display text-[clamp(1.1rem,3vw,1.7rem)] font-semibold leading-none tracking-tight text-ink">
                   IMPACT
                 </span>
-                <span className="mt-1 text-[10px] italic text-faint">of</span>
-                <span className="mt-1 px-3 font-display text-[clamp(0.9rem,2.2vw,1.15rem)] font-medium leading-tight text-ink-strong">
+                <span data-hub-word className="mt-1 text-[10px] italic text-faint">of</span>
+                <span data-hub-word className="mt-1 px-3 font-display text-[clamp(0.9rem,2.2vw,1.15rem)] font-medium leading-tight text-ink-strong">
                   HIGH Temperature
                 </span>
                 <span className="mt-3 flex gap-1.5" aria-hidden>

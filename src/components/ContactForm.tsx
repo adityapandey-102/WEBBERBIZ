@@ -124,7 +124,7 @@ export default function ContactForm({ bare = false }: { bare?: boolean }) {
 
       <button
         type="submit"
-        className="group mt-8 inline-flex items-center gap-2.5 rounded-full bg-black px-7 py-3.5 text-[13.5px] font-semibold text-white transition-colors duration-500 hover:bg-ink"
+        className="group mt-8 inline-flex items-center gap-2.5 rounded-full bg-accent-soft px-7 py-3.5 text-[13.5px] font-semibold text-white transition-colors duration-500 hover:bg-ink"
       >
         Request a Survey
         <Arrow />

@@ -33,6 +33,7 @@ export default function TechnologyPage() {
         line2="nanotechnology based."
         lede="A nanometer is one-billionth of a meter. At that scale a ceramic composite forms a continuous film that reflects first and insulates what remains — keeping the temperature away from the substrate."
         src="/video/tech-hero.mp4"
+        primary={{ label: "See the Range", href: "/products" }}
       />
 
       {/* The scale */}

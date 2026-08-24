@@ -70,7 +70,7 @@ export default function Reviews() {
             onMouseEnter={() => setHeld(true)}
             onMouseLeave={() => setHeld(false)}
             ref={card}
-            className="mx-auto max-w-2xl rounded-2xl border border-line bg-bg px-8 py-12 shadow-[0_24px_70px_-40px_rgba(15,26,19,0.35)] sm:px-14"
+            className="mx-auto max-w-2xl rounded-2xl border border-line bg-bg px-8 py-12 shadow-[0_24px_70px_-40px_rgba(35,26,20,0.35)] sm:px-14"
           >
             {/* Only the active review is mounted — crossfading two blocks of prose
                 left them legibly overlapping mid-transition. */}

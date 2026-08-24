@@ -6,9 +6,29 @@ import { usePathname } from "next/navigation";
 import { gsap, initGsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
 /**
- * Lenis drives the scroll position; GSAP's ScrollTrigger is slaved to it so
- * every pinned/scrubbed animation stays in sync with the eased scroll.
+ * Lenis owns the scroll position, so `overflow: hidden` on the document does
+ * NOT stop the page moving — Lenis keeps translating it. Anything that needs a
+ * scroll lock (the survey modal, the flyer modal) must call `lockScroll`.
  */
+let instance: Lenis | null = null;
+let locks = 0;
+
+export function lockScroll() {
+  locks += 1;
+  if (locks === 1) {
+    instance?.stop();
+    document.documentElement.style.overflow = "hidden";
+  }
+}
+
+export function unlockScroll() {
+  locks = Math.max(0, locks - 1);
+  if (locks === 0) {
+    instance?.start();
+    document.documentElement.style.overflow = "";
+  }
+}
+
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
@@ -22,6 +42,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       smoothWheel: true,
       touchMultiplier: 1.6,
     });
+    instance = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -32,11 +53,15 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     return () => {
       gsap.ticker.remove(raf);
       lenis.destroy();
+      instance = null;
     };
   }, []);
 
-  // New route: jump to top and re-measure every trigger.
+  // New route: jump to top, drop any stale lock, and re-measure every trigger.
   useEffect(() => {
+    locks = 0;
+    document.documentElement.style.overflow = "";
+    instance?.start();
     window.scrollTo(0, 0);
     const id = window.setTimeout(() => ScrollTrigger.refresh(), 120);
     return () => window.clearTimeout(id);

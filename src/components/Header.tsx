@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { company, nav } from "@/lib/data";
+import { lockScroll, unlockScroll } from "./SmoothScroll";
 
 export default function Header() {
   const pathname = usePathname();
@@ -19,16 +20,19 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    document.documentElement.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.documentElement.style.overflow = "";
-    };
+    if (!open) return;
+    lockScroll();
+    return () => unlockScroll();
   }, [open]);
 
   useEffect(() => setOpen(false), [pathname]);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  /* Routes whose hero sits on darkened video: until the bar goes solid, the
+     lockup has to be the white one or it disappears into the footage. */
+  const overDarkHero = pathname.startsWith("/technology") && !solid && !open;
 
   return (
     <>
@@ -39,35 +43,39 @@ export default function Header() {
       >
         <div className="mx-auto flex h-[var(--header-h)] w-full max-w-[1440px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
           {/* Mark */}
-          <Link href="/" className="group flex items-center gap-2.5" aria-label={company.name}>
+          <Link href="/" className="group flex items-center" aria-label={company.name}>
             <Image
-              src="/img/brand/logo-webberbiz-ink.png"
-              alt=""
-              width={310}
-              height={310}
+              src={
+                overDarkHero
+                  ? "/img/brand/webberbiz-lockup-white.png"
+                  : "/img/brand/webberbiz-lockup.png"
+              }
+              alt={company.name}
+              width={1200}
+              height={295}
               priority
-              className="h-9 w-9 object-contain transition-transform duration-700 ease-out-expo group-hover:rotate-[14deg]"
+              className="h-9 w-auto object-contain transition-opacity duration-500 group-hover:opacity-80 sm:h-10"
             />
-            <span className="flex flex-col leading-none">
-              <span className="font-display text-[22px] font-semibold tracking-tight text-ink">
-                Webberbiz
-              </span>
-              <span className="mt-1 text-[8.5px] font-medium uppercase tracking-[0.34em] text-faint">
-                Trading LLC
-              </span>
-            </span>
           </Link>
 
           {/* Centre pill nav */}
-          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center rounded-full border border-line bg-bg/70 p-1.5 backdrop-blur-xl lg:flex">
+          <nav
+            className={`absolute left-1/2 hidden -translate-x-1/2 items-center rounded-full border p-1.5 backdrop-blur-xl transition-colors duration-500 lg:flex ${
+              overDarkHero ? "border-white/15 bg-black/40" : "border-line bg-bg/70"
+            }`}
+          >
             {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={`rounded-full px-5 py-2.5 text-[13.5px] transition-all duration-400 ${
                   isActive(item.href)
-                    ? "bg-ink text-white"
-                    : "text-body hover:text-ink-strong"
+                    ? overDarkHero
+                      ? "bg-white text-ink-strong"
+                      : "bg-ink text-white"
+                    : overDarkHero
+                      ? "text-white/85 hover:text-white"
+                      : "text-body hover:text-ink-strong"
                 }`}
               >
                 {item.label}
@@ -78,7 +86,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <Link
               href="/contact"
-              className="hidden rounded-full bg-black px-6 py-3 text-[13.5px] font-semibold text-white transition-colors duration-500 hover:bg-ink sm:inline-flex"
+              className="hidden rounded-full bg-accent-soft px-6 py-3 text-[13.5px] font-semibold text-white transition-colors duration-500 hover:bg-ink sm:inline-flex"
             >
               Request a Survey
             </Link>
@@ -144,7 +152,7 @@ export default function Header() {
           </nav>
           <Link
             href="/contact"
-            className="mt-10 inline-flex justify-center rounded-full bg-black px-7 py-4 text-[13.5px] font-semibold text-white"
+            className="mt-10 inline-flex justify-center rounded-full bg-accent-soft px-7 py-4 text-[13.5px] font-semibold text-white"
           >
             Request a Survey
           </Link>

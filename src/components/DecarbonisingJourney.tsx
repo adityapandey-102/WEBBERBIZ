@@ -138,7 +138,7 @@ export default function DecarbonisingJourney({
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(226,239,236,0.28) 0%, rgba(255,255,255,0.06) 50%, rgba(47,79,77,0.30) 100%)",
+                "linear-gradient(180deg, rgba(226,239,236,0.28) 0%, rgba(255,255,255,0.06) 50%, rgba(143,58,17,0.30) 100%)",
             }}
           />
           {/* keeps the type legible wherever the footage is bright */}
@@ -147,7 +147,7 @@ export default function DecarbonisingJourney({
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(15,26,19,0.55) 0%, rgba(15,26,19,0.2) 40%, rgba(15,26,19,0.72) 100%)",
+                "linear-gradient(180deg, rgba(35,26,20,0.55) 0%, rgba(35,26,20,0.2) 40%, rgba(35,26,20,0.72) 100%)",
             }}
           />
         </div>
@@ -298,7 +298,7 @@ export default function DecarbonisingJourney({
           className="pointer-events-none absolute bottom-0 right-0 z-10 h-[52%] w-[46%] min-h-[300px] min-w-[380px]"
           style={{
             background:
-              "radial-gradient(115% 115% at 100% 100%, rgba(15,26,19,0.94) 0%, rgba(15,26,19,0.85) 30%, rgba(15,26,19,0.5) 58%, transparent 80%)",
+              "radial-gradient(115% 115% at 100% 100%, rgba(35,26,20,0.94) 0%, rgba(35,26,20,0.85) 30%, rgba(35,26,20,0.5) 58%, transparent 80%)",
           }}
         />
 

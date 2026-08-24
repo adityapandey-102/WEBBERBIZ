@@ -60,7 +60,7 @@ export default function PageHero({
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(250,250,249,0.88) 0%, rgba(250,250,249,0.55) 40%, rgba(250,250,249,0.3) 68%, var(--color-bg) 100%)",
+              "linear-gradient(to bottom, rgba(250,248,246,0.88) 0%, rgba(250,248,246,0.55) 40%, rgba(250,248,246,0.3) 68%, var(--color-bg) 100%)",
           }}
         />
       </div>

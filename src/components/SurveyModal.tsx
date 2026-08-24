@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import ContactForm from "./ContactForm";
+import { lockScroll, unlockScroll } from "./SmoothScroll";
 import { Arrow } from "./ui";
 import { company } from "@/lib/data";
 
@@ -60,14 +61,14 @@ export function SurveyProvider({ children }: { children: ReactNode }) {
     };
 
     document.addEventListener("keydown", onKey);
-    document.documentElement.style.overflow = "hidden";
+    lockScroll();
     const id = window.setTimeout(() => {
       panelRef.current?.querySelector<HTMLElement>("input, select, textarea")?.focus();
     }, 240);
 
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.documentElement.style.overflow = "";
+      unlockScroll();
       window.clearTimeout(id);
     };
   }, [isOpen, close]);
@@ -98,7 +99,7 @@ export function SurveyProvider({ children }: { children: ReactNode }) {
             aria-modal="true"
             aria-labelledby="survey-title"
             /* Capped to the viewport; the body scrolls, the header and foot stay put. */
-            className={`relative flex max-h-[92svh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl border border-line bg-bg shadow-[0_40px_120px_-30px_rgba(15,26,19,0.35)] transition-all duration-600 ease-out-expo ${
+            className={`relative flex max-h-[92svh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl border border-line bg-bg shadow-[0_40px_120px_-30px_rgba(35,26,20,0.35)] transition-all duration-600 ease-out-expo ${
               isOpen ? "translate-y-0 scale-100" : "translate-y-6 scale-[0.98]"
             }`}
           >
@@ -153,6 +154,43 @@ export function SurveyProvider({ children }: { children: ReactNode }) {
       </div>
     </SurveyCtx.Provider>
   );
+}
+
+/**
+ * Raises the survey once, after the reader has travelled a few screens — long
+ * enough to have seen something worth responding to. Guarded per browser session
+ * so it never nags, and it stays out of the way if the reader has already opened
+ * the form themselves.
+ */
+export function SurveyAutoOpen({ afterScreens = 3.5 }: { afterScreens?: number }) {
+  const { open } = useSurvey();
+
+  useEffect(() => {
+    const KEY = "wb:survey-prompted";
+    try {
+      if (sessionStorage.getItem(KEY)) return;
+    } catch {
+      return; // private mode — skip rather than nag on every scroll
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const threshold = () => window.innerHeight * afterScreens;
+    const onScroll = () => {
+      if (window.scrollY < threshold()) return;
+      try {
+        sessionStorage.setItem(KEY, "1");
+      } catch {
+        /* ignore */
+      }
+      window.removeEventListener("scroll", onScroll);
+      open();
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open, afterScreens]);
+
+  return null;
 }
 
 /** Any button that should raise the survey form in place. */

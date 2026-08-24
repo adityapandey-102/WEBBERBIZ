@@ -17,11 +17,13 @@ import Reviews from "@/components/home/Reviews";
 import CTA from "@/components/home/CTA";
 import Accordion from "@/components/Accordion";
 import { SectionHead } from "@/components/ui";
+import { SurveyAutoOpen } from "@/components/SurveyModal";
 import { faqs, marqueeWords } from "@/lib/data";
 
 export default function HomePage() {
   return (
     <>
+      <SurveyAutoOpen />
       <Hero />
       <Marquee words={marqueeWords} />
       <ImpactDiagram />

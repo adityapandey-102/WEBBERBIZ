@@ -3,6 +3,7 @@ import Image from "next/image";
 import ProductShowcase from "@/components/ProductShowcase";
 import Marquee from "@/components/Marquee";
 import { Pill, SectionHead } from "@/components/ui";
+import { FlyerProvider, FlyerButton } from "@/components/FlyerModal";
 import { LineReveal, Reveal } from "@/components/motion";
 import {
   leakageAreas,
@@ -23,6 +24,7 @@ export default function ProductsPage() {
     <>
       <ProductShowcase />
 
+      <FlyerProvider>
       <div className="px-5 sm:px-8 lg:px-12">
         <div className="mx-auto w-full max-w-[1280px]">
           {products.map((p, i) => (
@@ -120,6 +122,10 @@ export default function ProductsPage() {
                       </span>
                     ))}
                   </Reveal>
+
+                  <Reveal className="mt-8">
+                    <FlyerButton product={p} />
+                  </Reveal>
                 </div>
 
                 <Reveal className="flex items-center justify-center">
@@ -140,6 +146,7 @@ export default function ProductsPage() {
           ))}
         </div>
       </div>
+      </FlyerProvider>
 
       <Marquee words={protections} duration={44} />
 

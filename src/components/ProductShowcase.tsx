@@ -393,7 +393,7 @@ export default function ProductShowcase() {
                   alt=""
                   fill
                   sizes="300px"
-                  className="object-contain drop-shadow-[0_18px_40px_rgba(15,26,19,0.10)]"
+                  className="object-contain drop-shadow-[0_18px_40px_rgba(35,26,20,0.10)]"
                 />
               </div>
             </div>
@@ -459,7 +459,7 @@ export default function ProductShowcase() {
                       aria-hidden
                       fill
                       sizes="360px"
-                      className="object-contain drop-shadow-[0_38px_80px_rgba(15,26,19,0.24)]"
+                      className="object-contain drop-shadow-[0_38px_80px_rgba(35,26,20,0.24)]"
                     />
                   </div>
                 )}
@@ -471,7 +471,7 @@ export default function ProductShowcase() {
                     fill
                     priority={active === 0}
                     sizes="360px"
-                    className="object-contain drop-shadow-[0_38px_80px_rgba(15,26,19,0.24)]"
+                    className="object-contain drop-shadow-[0_38px_80px_rgba(35,26,20,0.24)]"
                   />
                 </div>
 
@@ -481,7 +481,7 @@ export default function ProductShowcase() {
                   data-shadow
                   aria-hidden
                   className="pointer-events-none absolute -bottom-5 left-1/2 h-5 w-[58%] -translate-x-1/2 rounded-[50%] blur-md"
-                  style={{ background: "rgba(15,26,19,0.15)" }}
+                  style={{ background: "rgba(35,26,20,0.15)" }}
                 />
               </div>
 
@@ -517,7 +517,7 @@ export default function ProductShowcase() {
 
           <Link
             href={`/products#${product.slug}`}
-            className="group mt-6 inline-flex items-center gap-2.5 rounded-full bg-black px-8 py-3.5 text-[13.5px] font-semibold text-white transition-all duration-500 ease-out-expo hover:bg-ink"
+            className="group mt-6 inline-flex items-center gap-2.5 rounded-full bg-accent-soft px-8 py-3.5 text-[13.5px] font-semibold text-white transition-all duration-500 ease-out-expo hover:bg-ink"
           >
             View product
             <Arrow />

@@ -767,3 +767,11 @@ export const reviews = [
     source: "Placeholder",
   },
 ];
+
+/** Slide 5 of the catalogue — the decarbonisation definition, in two halves. */
+export const decarbonising = {
+  definition:
+    "Decarbonization is the process of reducing or eliminating carbon emissions from a particular process or sector of the economy.",
+  business:
+    "In a business context, decarbonizing means continually lowering carbon emissions in everything your business does.",
+};

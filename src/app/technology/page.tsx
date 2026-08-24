@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import VideoHero from "@/components/VideoHero";
+import DecarbonisingJourney from "@/components/DecarbonisingJourney";
 import PrincipleDiagram from "@/components/PrincipleDiagram";
 import ThermalChart from "@/components/ThermalChart";
 import { SectionHead } from "@/components/ui";
@@ -245,97 +246,7 @@ export default function TechnologyPage() {
         </div>
       </div>
 
-      {/* Decarbonising context */}
-      <div className="relative bg-surface px-5 py-24 sm:px-8 md:py-32 lg:px-12">
-        <div className="haze haze-top" />
-        <div className="relative mx-auto w-full max-w-[1280px]">
-          <SectionHead
-            eyebrow="Decarbonising"
-            line1="Cooling is a"
-            line2="carbon problem."
-            body="Temperature reduction on the roof top is directly proportional to reduced air conditioning energy consumption, thereby reducing cost and carbon footprint."
-          />
-
-          <div className="mt-20 grid gap-6 lg:grid-cols-[1.05fr_1fr]">
-            <Reveal className="lux-card px-8 py-9">
-              <div className="flex items-baseline gap-4">
-                <span className="font-display text-[clamp(3rem,6vw,4.6rem)] font-light leading-[0.85] text-ink">
-                  <Counter value={3.94} decimals={2} suffix="%" />
-                </span>
-                <span className="text-[13.5px] leading-snug text-body">
-                  of global greenhouse
-                  <br />
-                  gas emissions
-                </span>
-              </div>
-
-              <div className="mt-9">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-faint">
-                  Where air conditioning&rsquo;s {emissionsSplit.total} of CO₂ goes
-                </span>
-                <div className="mt-4 flex h-3 gap-[2px] overflow-hidden rounded-full">
-                  {emissionsSplit.parts.map((p, i) => (
-                    <span
-                      key={p.label}
-                      className="h-full first:rounded-l-full last:rounded-r-full"
-                      style={{
-                        width: `${(p.value / total) * 100}%`,
-                        background:
-                          i === 0 ? "var(--color-data-hot)" : "var(--color-data-cool)",
-                      }}
-                    />
-                  ))}
-                </div>
-                <ul className="mt-5 space-y-3.5">
-                  {emissionsSplit.parts.map((p, i) => (
-                    <li key={p.label} className="flex items-start gap-3">
-                      <span
-                        className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-[2px]"
-                        style={{
-                          background:
-                            i === 0 ? "var(--color-data-hot)" : "var(--color-data-cool)",
-                        }}
-                        aria-hidden
-                      />
-                      <span>
-                        <span className="text-[14px] text-ink-strong">
-                          {p.value} Mt — {p.label}
-                        </span>
-                        <span className="mt-0.5 block text-[12.5px] text-faint">{p.note}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-
-            <div className="space-y-6">
-              <Reveal className="overflow-hidden rounded-2xl border border-line">
-                <div className="relative aspect-[16/10]">
-                  <Image
-                    src="/img/bg/global-emissions.webp"
-                    alt="Breakdown of global greenhouse gas emissions by sector"
-                    fill
-                    sizes="(max-width: 1024px) 92vw, 46vw"
-                    className="object-contain bg-bg p-4"
-                  />
-                </div>
-              </Reveal>
-              <Reveal className="lux-card px-8 py-8">
-                <ul className="space-y-4">
-                  {acContext.map((line) => (
-                    <li key={line} className="flex gap-3 text-[14px] leading-[1.72] text-body">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ink/50" aria-hidden />
-                      {line}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-        <div className="haze haze-bottom" />
-      </div>
+      <DecarbonisingJourney startFrame={1} />
     </>
   );
 }

@@ -8,7 +8,7 @@ import ProductShowcase from "@/components/ProductShowcase";
 import Proof from "@/components/home/Proof";
 import Process from "@/components/home/Process";
 import Terminal from "@/components/home/Terminal";
-import WhyGCC from "@/components/home/WhyGCC";
+import DecarbonisingJourney from "@/components/DecarbonisingJourney";
 import Lenses from "@/components/home/Lenses";
 import Principles from "@/components/home/Principles";
 import Applications from "@/components/home/Applications";
@@ -32,7 +32,7 @@ export default function HomePage() {
       <Proof />
       <Process />
       <Terminal />
-      <WhyGCC />
+      <DecarbonisingJourney />
       <Lenses />
       <Principles />
       <Applications />

@@ -273,3 +273,49 @@ marked `TODO` in `src/lib/data.ts` with `source: "Placeholder"` — replace befo
   in a rounded plate with a hairline frame and **no scrim over the footage**, so it stays
   sharp rather than washed out. Muted + `playsInline` for autoplay policy;
   `prefers-reduced-motion` pauses it.
+
+## Decarbonising journey (`DecarbonisingJourney`)
+
+A pinned, four-frame journey backed by aerial footage. On the home page it takes the place
+of `WhyGCC`; at the end of `/technology` it replaces the old "Decarbonising" block and opens
+on frame 02 (`startFrame={1}`) so it reads as a conclusion rather than a second intro.
+
+**Content** is catalogue slides 5 and 7, verbatim: the definition, the business-context line,
+then the UAE block — first to sign the Paris Agreement, first to commit to net zero by 2050,
+and the oil-and-gas / renewables / transport commitments.
+
+### Why the video plays instead of being scrubbed
+
+The obvious build is to drive `currentTime` from scroll. I measured seek latency on the
+supplied encode first:
+
+```
+median 55ms · p90 95ms · max 104ms
+```
+
+A scrubbed frame needs to land inside ~16ms, so hard-scrubbing stuttered at roughly 10–18fps.
+Re-encoding with dense keyframes would fix it but needs ffmpeg, which this machine lacks.
+
+So the clip **loops and plays normally** — always smooth — and the *grade* is scrubbed
+instead: a warm smog wash lifts and a clear cool light rises as the reader descends. The
+polluted-to-clean journey still tracks the scroll, without a single seek.
+
+If you want true scrubbing later, supply the clip re-encoded at GOP 1 and it is a small change.
+
+### Footage
+
+Four takes live in `public/video/zero-emission/` as `take-1..4.mp4` (8s, 1280×720, ~2MB each).
+**take-3** is used — it has the strongest arc, ending on a bright clean city with river, solar
+and turbines. The others are kept as alternates; swapping is a one-line change.
+
+### The generator watermark
+
+The clips carry a corner sparkle from the generator. Because `object-cover` crops differently
+at every viewport ratio, that mark lands in a moving spot — so rather than a fixed patch, the
+bottom-right carries a **proportional radial wash** (52% × 46% of the stage) with the Webberbiz
+lockup sitting inside it. Verified by measuring luminance range in that region: **11** (min 24,
+max 35), i.e. flat — the mark is not recoverable from the rendered frame.
+
+Note this covers, and does not remove, the provider's visible mark; check that against the
+generator's terms for commercial use, and be aware invisible watermarking (e.g. SynthID) may
+persist in the file regardless.
